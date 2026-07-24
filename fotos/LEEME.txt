@@ -1,0 +1,112 @@
+PARRILLA DON JUAN — Guía de fotos
+==================================
+
+Poné cada foto DENTRO de esta carpeta "fotos" con el nombre EXACTO
+que figura acá abajo (todo en minúscula, con guiones, sin tildes,
+terminación .jpg). Mientras un archivo no esté, la página va a
+seguir mostrando el cartel naranja de placeholder solo en ese plato
+— no rompe nada, así que podés ir cargando de a una.
+
+Si tu foto es .png o .jpeg, cambiale la extensión a .jpg al
+renombrarla, o avisame y te ajusto el código para esa extensión.
+
+ENTRADAS
+--------
+bastones-de-queso-muzzarella.jpg
+empanadas.jpg
+lengua-a-la-vinagreta.jpg
+provoleta.jpg
+mollejas-a-la-parrilla.jpg
+rabas.jpg
+langostino-parmesano.jpg
+langostino-apanado.jpg
+duo-de-mar.jpg
+
+ENSALADAS
+---------
+cacho-de-buenos-aires.jpg
+gaucho-buenaventura.jpg
+el-chaqueno.jpg
+ensalada-don-juan.jpg
+
+DEL FUEGO
+---------
+vacio.jpg
+bife-de-chorizo.jpg
+ojo-de-bife.jpg
+entrana.jpg
+tira-de-asado.jpg
+lomo-grille.jpg
+chivito-a-la-parrilla.jpg
+matambre-de-cerdo.jpg
+costillar-de-cerdo.jpg
+tomaharuk.jpg
+achuras.jpg
+milanesas.jpg
+pechuga-de-pollo.jpg
+
+PARA COMPARTIR
+--------------
+parrilla-tradicional.jpg
+parrilla-don-juan.jpg
+
+DON JUAN GOURMET
+----------------
+entrana-rellena.jpg
+carne-a-la-masa.jpg
+bife-de-chorizo-a-lo-pobre.jpg
+bife-de-chorizo-don-juan.jpg
+matambre-de-cerdo-a-la-pizza.jpg
+lomo-terra-mar.jpg
+lomo-champignon.jpg
+
+PASTAS
+------
+raviolon-de-salmon-con-salsa-de-langostinos.jpg
+ravioles-fritos.jpg
+raviolon-de-jamon-y-queso.jpg
+raviolon-de-lomo-al-vino-blanco.jpg
+raviol-de-pollo-y-verdura.jpg
+fetuchini.jpg
+
+ACOMPAÑAMIENTOS
+---------------
+ensaladas-mixta-y-rusa.jpg
+arroz-o-pure.jpg
+papas.jpg
+porcion-de-huevo.jpg
+
+POSTRES
+-------
+ensalada-de-frutas.jpg
+vigilantes.jpg
+zapallitos-en-almibar.jpg
+higos-en-almibar.jpg
+copa-don-pedro.jpg
+copa-don-juan.jpg
+copa-potrero.jpg
+flan-casero.jpg
+panqueques-celestino.jpg
+adictos-al-chocolate.jpg
+
+BEBIDAS
+-------
+gaseosas-y-aguas-saborizadas.jpg
+cervezas.jpg
+tragos.jpg
+
+VINOS
+-----
+vino-por-copa.jpg
+vinos-blancos-y-dulces.jpg
+vinos-tintos-jovenes.jpg
+vinos-tintos-con-crianza.jpg
+vinos-espumosos.jpg
+
+FOTO DE LA SECCIÓN "NUESTRA HISTORIA"
+--------------------------------------
+potrero-de-los-funes.jpg   (foto vertical, del lago o las sierras)
+
+Tip de tamaño: 1000-1200 px de ancho alcanza y sobra. Si las fotos
+pesan mucho (celular = 3-5 MB c/u), comprimilas antes en
+https://squoosh.app así la página carga rápido.
