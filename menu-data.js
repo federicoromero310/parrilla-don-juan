@@ -1,0 +1,453 @@
+/* Archivo de datos del menú — Parrilla Don Juan */
+window.MENU_DATA = {
+  "categorias": [
+    {
+      "id": "entradas",
+      "nombre": "Entradas",
+      "platos": [
+        {
+          "id": "bastones-muzzarella",
+          "nombre": "Bastones de queso muzzarella",
+          "descripcion": "Rebozados en batido inglés, servidos con dip de tomate.",
+          "precio": 8500,
+          "imagen": "bastones-de-queso-muzzarella.jpg"
+        },
+        {
+          "id": "empanadas",
+          "nombre": "Empanadas",
+          "descripcion": "A elección: carne, jamón y queso, osobuco o chivo.",
+          "precio": 2300,
+          "imagen": "empanadas.jpg"
+        },
+        {
+          "id": "lengua-vinagreta",
+          "nombre": "Lengua a la vinagreta",
+          "descripcion": "Lengua de vacuno en láminas, con vinagre blanco y huevo duro.",
+          "precio": 9000,
+          "imagen": "lengua-a-la-vinagreta.jpg"
+        },
+        {
+          "id": "provoleta",
+          "nombre": "Provoleta",
+          "descripcion": "Queso fundido al calor, con tomates cherry, especias y aceite de oliva.",
+          "precio": 9500,
+          "imagen": "provoleta.jpg"
+        },
+        {
+          "id": "mollejas",
+          "nombre": "Mollejas a la parrilla",
+          "descripcion": "Con limón, sal y pimienta, a la provenzal.",
+          "precio": 20000,
+          "imagen": "mollejas-a-la-parrilla.jpg"
+        },
+        {
+          "id": "rabas",
+          "nombre": "Rabas",
+          "descripcion": "Calamares apanados, acompañados de mayonesa aioli.",
+          "precio": 16000,
+          "imagen": "rabas.jpg"
+        },
+        {
+          "id": "langostino-parmesano",
+          "nombre": "Langostino Parmesano",
+          "descripcion": "Langostinos, manteca, crema, coñac y queso parmesano.",
+          "precio": 18000,
+          "imagen": "langostino-parmesano.jpg"
+        },
+        {
+          "id": "langostino-apanado",
+          "nombre": "Langostino Apanado",
+          "descripcion": "Crujientes langostinos rebozados en coco, con variadas salsas.",
+          "precio": 18000,
+          "imagen": "langostino-apanado.jpg"
+        },
+        {
+          "id": "duo-de-mar",
+          "nombre": "Duo de Mar",
+          "descripcion": "Rabas y camarones apanados, acompañados de variadas salsas.",
+          "precio": 24000,
+          "imagen": "duo-de-mar.jpg"
+        }
+      ]
+    },
+    {
+      "id": "parrilla",
+      "nombre": "Parrilla",
+      "platos": [
+        {
+          "id": "parrilla-tradicional",
+          "nombre": "Parrilla Tradicional",
+          "descripcion": "Tira de asado, vacío, cerdo, pollo, chorizo, morcilla y chinchulines. Para 2, 3 o 4 personas.",
+          "precio": 47000,
+          "imagen": "parrilla-tradicional.jpg"
+        },
+        {
+          "id": "parrilla-don-juan",
+          "nombre": "Parrilla Don Juan",
+          "descripcion": "Tira de asado, vacío, cerdo, pollo, matambre de cerdo y mollejas. Para 2, 3 o 4 personas.",
+          "precio": 53000,
+          "imagen": "parrilla-don-juan.jpg"
+        },
+        {
+          "id": "vacio",
+          "nombre": "Vacío",
+          "descripcion": "Corte clásico a la parrilla.",
+          "precio": 22000,
+          "imagen": "vacio.jpg"
+        },
+        {
+          "id": "bife-chorizo",
+          "nombre": "Bife de Chorizo",
+          "descripcion": "Corte grueso, sellado a fuego fuerte.",
+          "precio": 22000,
+          "imagen": "bife-de-chorizo.jpg"
+        },
+        {
+          "id": "entrana",
+          "nombre": "Entraña",
+          "descripcion": "Fina y sabrosa, a las brasas.",
+          "precio": 23000,
+          "imagen": "entrana.jpg"
+        },
+        {
+          "id": "tira-asado",
+          "nombre": "Tira de Asado",
+          "descripcion": "Cocción lenta a las brasas, el clásico de siempre.",
+          "precio": 19000,
+          "imagen": "tira-de-asado.jpg"
+        },
+        {
+          "id": "lomo-grille",
+          "nombre": "Lomo Grille",
+          "descripcion": "Lomo asado a la parrilla, en su punto.",
+          "precio": 21000,
+          "imagen": "lomo-grille.jpg"
+        },
+        {
+          "id": "matambre-cerdo",
+          "nombre": "Matambre de Cerdo",
+          "descripcion": "Asado a la parrilla, tierno y jugoso.",
+          "precio": 18000,
+          "imagen": "matambre-de-cerdo.jpg"
+        },
+        {
+          "id": "pechuga-pollo",
+          "nombre": "Pechuga de Pollo",
+          "descripcion": "Asada a la parrilla, con limón o con crema al roquefort.",
+          "precio": 15000,
+          "imagen": "pechuga-de-pollo.jpg"
+        }
+      ]
+    },
+    {
+      "id": "gourmet",
+      "nombre": "Gourmet",
+      "platos": [
+        {
+          "id": "entrana-rellena",
+          "nombre": "Entraña Rellena",
+          "descripcion": "Adobada en chimichurri casero, con pimiento morrón asado, jamón y queso provoleta, envuelta en masa.",
+          "precio": 28000,
+          "imagen": "entrana-rellena.jpg"
+        },
+        {
+          "id": "carne-masa",
+          "nombre": "Carne a la Masa",
+          "descripcion": "Carne de ternera en su punto exacto, con verduras asadas, romero, aliños y vino tinto.",
+          "precio": 27000,
+          "imagen": "carne-a-la-masa.jpg"
+        },
+        {
+          "id": "bife-a-lo-pobre",
+          "nombre": "Bife de Chorizo a lo Pobre",
+          "descripcion": "Acompañado de papas fritas, huevo y cebolla caramelizada.",
+          "precio": 28000,
+          "imagen": "bife-de-chorizo-a-lo-pobre.jpg"
+        },
+        {
+          "id": "bife-don-juan",
+          "nombre": "Bife de Chorizo Don Juan",
+          "descripcion": "Relleno de queso muzzarella, langostinos, champignon, jamón y morrones asados.",
+          "precio": 29000,
+          "imagen": "bife-de-chorizo-don-juan.jpg"
+        },
+        {
+          "id": "matambre-pizza",
+          "nombre": "Matambre de Cerdo a la Pizza",
+          "descripcion": "Asado a la parrilla, con tomate, jamón y queso.",
+          "precio": 25000,
+          "imagen": "matambre-de-cerdo-a-la-pizza.jpg"
+        },
+        {
+          "id": "lomo-terra-mar",
+          "nombre": "Lomo Terra Mar",
+          "descripcion": "Dos medallones de lomo, con salsa de langostinos, champignon y verduras salteadas en coñac, manteca y crema.",
+          "precio": 26000,
+          "imagen": "lomo-terra-mar.jpg"
+        },
+        {
+          "id": "lomo-champignon",
+          "nombre": "Lomo Champignon",
+          "descripcion": "Dos medallones de lomo, con salsa de champignon, salteados en coñac, manteca y crema.",
+          "precio": 24000,
+          "imagen": "lomo-champignon.jpg"
+        }
+      ]
+    },
+    {
+      "id": "cocina",
+      "nombre": "Cocina",
+      "nota": "Salsas a elección: bolognesa, blanca, roja o mixta. Salsas gourmet: langostino, roquefort, champignon, pollo, terramar o crema.",
+      "platos": [
+        {
+          "id": "milanesas",
+          "nombre": "Milanesas",
+          "descripcion": "De carne o de pollo. También a caballo (con huevo frito) o a la napolitana (jamón, queso y salsa).",
+          "precio": 14000,
+          "imagen": "milanesas.jpg"
+        },
+        {
+          "id": "raviolon-salmon",
+          "nombre": "Raviolón de Salmón con Salsa de Langostinos",
+          "descripcion": "Masa en tinta de calamar, con salsa de langostinos, verdura, crema y coñac.",
+          "precio": 19000,
+          "imagen": "raviolon-de-salmon-con-salsa-de-langostinos.jpg"
+        },
+        {
+          "id": "raviolon-jamon-queso",
+          "nombre": "Raviolón de Jamón y Queso",
+          "descripcion": "Acompañado de salsa a elección.",
+          "precio": 15000,
+          "imagen": "raviolon-de-jamon-y-queso.jpg"
+        },
+        {
+          "id": "raviolon-lomo",
+          "nombre": "Raviolón de Lomo al Vino Blanco",
+          "descripcion": "Acompañado de salsa a elección.",
+          "precio": 15000,
+          "imagen": "raviolon-de-lomo-al-vino-blanco.jpg"
+        },
+        {
+          "id": "raviol-pollo",
+          "nombre": "Raviol de Pollo y Verdura",
+          "descripcion": "Acompañado de salsa a elección.",
+          "precio": 14000,
+          "imagen": "raviol-de-pollo-y-verdura.jpg"
+        },
+        {
+          "id": "fetuchini",
+          "nombre": "Fetuchini",
+          "descripcion": "Acompañado de salsa a elección.",
+          "precio": 10000,
+          "imagen": "fetuchini.jpg"
+        }
+      ]
+    },
+    {
+      "id": "acompanamientos",
+      "nombre": "Acompañamientos",
+      "platos": [
+        {
+          "id": "cacho-bsas",
+          "nombre": "Cacho de Buenos Aires",
+          "descripcion": "Tomate cherry, zanahoria, choclo, palta y rúcula fresca, con mix de semillas, aderezo de oliva y albahaca.",
+          "precio": 9800,
+          "imagen": "cacho-de-buenos-aires.jpg"
+        },
+        {
+          "id": "gaucho-buenaventura",
+          "nombre": "Gaucho Buenaventura",
+          "descripcion": "A la parrilla: pimientos asados, cebolla, zanahoria, berenjenas y tomate, con aceite de oliva y aliños.",
+          "precio": 8500,
+          "imagen": "gaucho-buenaventura.jpg"
+        },
+        {
+          "id": "el-chaqueno",
+          "nombre": "El Chaqueño",
+          "descripcion": "Rúcula, parmesano, jamón serrano y tomate cherry.",
+          "precio": 9500,
+          "imagen": "el-chaqueno.jpg"
+        },
+        {
+          "id": "ensalada-don-juan",
+          "nombre": "Ensalada Don Juan",
+          "descripcion": "Armá tu ensalada eligiendo tres: lechuga, rúcula, tomate, tomate cherry, huevo, zanahoria, cebolla, queso en cubos o parmesano.",
+          "precio": 8000,
+          "imagen": "ensalada-don-juan.jpg"
+        },
+        {
+          "id": "ensalada-mixta",
+          "nombre": "Ensalada Mixta",
+          "descripcion": "Lechuga, tomate y cebolla.",
+          "precio": 7000,
+          "imagen": "ensalada-mixta.jpg"
+        },
+        {
+          "id": "ensalada-rusa",
+          "nombre": "Ensalada Rusa",
+          "descripcion": "Papa, huevo, zanahoria y arvejas.",
+          "precio": 7500,
+          "imagen": "ensalada-rusa.jpg"
+        },
+        {
+          "id": "arroz",
+          "nombre": "Arroz",
+          "descripcion": "Guarnición clásica.",
+          "precio": 6500,
+          "imagen": "arroz.jpg"
+        },
+        {
+          "id": "pure",
+          "nombre": "Puré",
+          "descripcion": "Guarnición clásica.",
+          "precio": 6500,
+          "imagen": "pure.jpg"
+        },
+        {
+          "id": "papas",
+          "nombre": "Papas",
+          "descripcion": "Fritas, a la provenzal, con huevo o doradas.",
+          "precio": 6500,
+          "imagen": "papas.jpg"
+        }
+      ]
+    },
+    {
+      "id": "postres",
+      "nombre": "Postres",
+      "platos": [
+        {
+          "id": "ensalada-frutas",
+          "nombre": "Ensalada de Frutas",
+          "descripcion": "Frutas frescas de estación.",
+          "precio": 6500,
+          "imagen": "ensalada-de-frutas.jpg"
+        },
+        {
+          "id": "vigilantes",
+          "nombre": "Vigilantes",
+          "descripcion": "Queso y dulce.",
+          "precio": 6500,
+          "imagen": "vigilantes.jpg"
+        },
+        {
+          "id": "higos-almibar",
+          "nombre": "Higos en Almíbar",
+          "descripcion": "Solos o con queso.",
+          "precio": 7000,
+          "imagen": "higos-en-almibar.jpg"
+        },
+        {
+          "id": "copa-don-pedro",
+          "nombre": "Copa Don Pedro",
+          "descripcion": "Crema americana, nueces y whisky.",
+          "precio": 9000,
+          "imagen": "copa-don-pedro.jpg"
+        },
+        {
+          "id": "copa-don-juan",
+          "nombre": "Copa Don Juan",
+          "descripcion": "Frutas de estación, trilogía de helado, salsa, galletas, dulce de leche y crema.",
+          "precio": 9000,
+          "imagen": "copa-don-juan.jpg"
+        },
+        {
+          "id": "copa-potrero",
+          "nombre": "Copa Potrero",
+          "descripcion": "Tres sabores de helado a elección, con galletas y salsa.",
+          "precio": 7000,
+          "imagen": "copa-potrero.jpg"
+        },
+        {
+          "id": "flan-casero",
+          "nombre": "Flan Casero",
+          "descripcion": "Solo, con dulce de leche, con crema o mixto (dulce de leche y crema).",
+          "precio": 7000,
+          "imagen": "flan-casero.jpg"
+        },
+        {
+          "id": "panqueques-celestino",
+          "nombre": "Panqueques Celestino",
+          "descripcion": "Con dulce de leche, o con dulce de leche y bocha de helado.",
+          "precio": 7500,
+          "imagen": "panqueques-celestino.jpg"
+        },
+        {
+          "id": "adictos-chocolate",
+          "nombre": "Adictos al Chocolate",
+          "descripcion": "Base de brownie con chocolate, con salsa, ralladura de bitter y helado de chocolate.",
+          "precio": 9000,
+          "imagen": "adictos-al-chocolate.jpg"
+        }
+      ]
+    },
+    {
+      "id": "bebidas",
+      "nombre": "Bebidas",
+      "platos": [
+        {
+          "id": "gaseosas-aguas",
+          "nombre": "Gaseosas y Aguas Saborizadas",
+          "descripcion": "Agua con o sin gas, aguas saborizadas y gaseosas.",
+          "precio": 0,
+          "imagen": "gaseosas-y-aguas-saborizadas.jpg"
+        },
+        {
+          "id": "cervezas",
+          "nombre": "Cervezas",
+          "descripcion": "Corona (con y sin alcohol), Stella, Andes y Quilmes.",
+          "precio": 0,
+          "imagen": "cervezas.jpg"
+        },
+        {
+          "id": "tragos",
+          "nombre": "Tragos",
+          "descripcion": "Campari, fernet con coca, gancia con sprite, gin tónica y whisky (Black Label o Red Label).",
+          "precio": 0,
+          "imagen": "tragos.jpg"
+        }
+      ]
+    },
+    {
+      "id": "vinos",
+      "nombre": "Vinos",
+      "platos": [
+        {
+          "id": "vino-copa",
+          "nombre": "Vino por copa",
+          "descripcion": "Las Perdices, Malbec o Chardonnay.",
+          "precio": 0,
+          "imagen": "vino-por-copa.jpg"
+        },
+        {
+          "id": "blancos-dulces",
+          "nombre": "Blancos y blancos dulces",
+          "descripcion": "Partridge Chardonnay, Las Perdices Sauvignon Blanc, Santa Julia Chardonnay y Santa Julia Chenin Dulce.",
+          "precio": 0,
+          "imagen": "vinos-blancos-y-dulces.jpg"
+        },
+        {
+          "id": "tintos-jovenes",
+          "nombre": "Tintos jóvenes",
+          "descripcion": "Partridge, Viñas Puntanas, Cordero con Piel de Lobo, Las Perdices, Casillero del Diablo, Tomero, Sombrero, Trumpenter y Manos Negras, entre otros.",
+          "precio": 0,
+          "imagen": "vinos-tintos-jovenes.jpg"
+        },
+        {
+          "id": "tintos-crianza",
+          "nombre": "Tintos con crianza",
+          "descripcion": "Mosquita Muerta, Sapo de Otro Pozo, Las Perdices Don Juan, Alma Negra, Las Perdices Reserva, Ala Colorada, Gran Sombrero y Rutini.",
+          "precio": 0,
+          "imagen": "vinos-tintos-con-crianza.jpg"
+        },
+        {
+          "id": "espumosos",
+          "nombre": "Espumosos",
+          "descripcion": "Luigi Bosca, Antonieta, Las Perdices y Salentein.",
+          "precio": 0,
+          "imagen": "vinos-espumosos.jpg"
+        }
+      ]
+    }
+  ]
+};

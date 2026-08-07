@@ -1,880 +1,1059 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Don Juan · Parrilla en Potrero de los Funes</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --carbon:#19140F;
-    --carbon-2:#221B14;
-    --brasa:#C1440E;
-    --ember:#E8A33D;
-    --humo:#9A8F7D;
-    --hueso:#F3EBDA;
-    --hueso-dim:#D8CBB2;
-  }
-  *{margin:0;padding:0;box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    background:var(--carbon);
-    color:var(--hueso);
-    font-family:'Work Sans', sans-serif;
-    font-weight:400;
-    line-height:1.6;
-    overflow-x:hidden;
-  }
-  h1,h2,h3{font-family:'Fraunces', serif;font-weight:600;}
-  a{color:inherit;text-decoration:none;}
-  .mono{font-family:'JetBrains Mono', monospace;}
-
-  /* subtle grain texture */
-  body::before{
-    content:"";
-    position:fixed;inset:0;
-    pointer-events:none;
-    z-index:999;
-    opacity:0.035;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
-
-  /* ---------- ember divider (signature element) ---------- */
-  .ember-line{
-    position:relative;
-    height:2px;
-    width:100%;
-    background:linear-gradient(90deg, transparent, var(--brasa) 20%, var(--ember) 50%, var(--brasa) 80%, transparent);
-    overflow:visible;
-    margin:0 auto;
-  }
-  .ember-line::after{
-    content:"";
-    position:absolute;
-    top:-3px;
-    left:50%;
-    width:8px;height:8px;
-    border-radius:50%;
-    background:var(--ember);
-    box-shadow:0 0 12px 3px var(--ember), 0 0 24px 6px rgba(193,68,14,0.5);
-    animation:drift 5s ease-in-out infinite;
-  }
-  @keyframes drift{
-    0%,100%{left:20%; opacity:0.5; transform:translateY(0) scale(0.8);}
-    50%{left:80%; opacity:1; transform:translateY(-4px) scale(1.1);}
-  }
-
-  /* ---------- header / nav ---------- */
-  header{
-    position:fixed;top:0;left:0;right:0;
-    z-index:100;
-    display:flex;justify-content:space-between;align-items:center;
-    padding:22px 6vw;
-    background:linear-gradient(to bottom, rgba(25,20,15,0.9), transparent);
-    backdrop-filter:blur(2px);
-  }
-  .brand{
-    font-family:'Fraunces', serif;
-    font-size:1.3rem;
-    letter-spacing:0.04em;
-    font-weight:700;
-  }
-  .brand span{color:var(--brasa);}
-  nav{display:flex;gap:2.2rem;}
-  nav a{
-    font-family:'JetBrains Mono', monospace;
-    font-size:0.72rem;
-    letter-spacing:0.12em;
-    text-transform:uppercase;
-    color:var(--hueso-dim);
-    transition:color 0.25s;
-    position:relative;
-  }
-  nav a:hover{color:var(--ember);}
-  .nav-toggle{display:none;}
-
-  /* ---------- hero ---------- */
-  .hero{
-    min-height:100svh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    position:relative;
-    padding:0 6vw;
-    background:
-      radial-gradient(ellipse 80% 60% at 50% 105%, rgba(193,68,14,0.35), transparent 60%),
-      radial-gradient(ellipse 60% 40% at 20% 0%, rgba(232,163,61,0.08), transparent 60%),
-      var(--carbon);
-  }
-  .hero-eyebrow{
-    font-family:'JetBrains Mono', monospace;
-    font-size:0.75rem;
-    letter-spacing:0.28em;
-    text-transform:uppercase;
-    color:var(--ember);
-    margin-bottom:1.4rem;
-  }
-  .hero h1{
-    font-size:clamp(3.2rem, 12vw, 8rem);
-    line-height:0.92;
-    letter-spacing:-0.01em;
-    color:var(--hueso);
-  }
-  .hero h1 em{
-    font-style:italic;
-    color:var(--brasa);
-    font-weight:500;
-  }
-  .hero-sub{
-    margin-top:1.6rem;
-    max-width:34ch;
-    font-size:1.05rem;
-    color:var(--hueso-dim);
-    font-weight:300;
-  }
-  .hero-ctas{
-    margin-top:2.6rem;
-    display:flex;
-    gap:1rem;
-    flex-wrap:wrap;
-    justify-content:center;
-  }
-  .btn{
-    font-family:'JetBrains Mono', monospace;
-    font-size:0.78rem;
-    letter-spacing:0.08em;
-    text-transform:uppercase;
-    padding:0.95rem 1.8rem;
-    border-radius:2px;
-    border:1px solid var(--brasa);
-    transition:all 0.25s;
-  }
-  .btn-fill{background:var(--brasa);color:var(--hueso);}
-  .btn-fill:hover{background:var(--ember);border-color:var(--ember);color:var(--carbon);}
-  .btn-outline{color:var(--hueso-dim);border-color:var(--humo);}
-  .btn-outline:hover{border-color:var(--ember);color:var(--ember);}
-
-  .embers-bg{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0;}
-  .spark{
-    position:absolute;
-    bottom:-10px;
-    width:3px;height:3px;
-    border-radius:50%;
-    background:var(--ember);
-    box-shadow:0 0 6px 2px rgba(232,163,61,0.8);
-    animation:rise linear infinite;
-    opacity:0;
-  }
-  @keyframes rise{
-    0%{transform:translateY(0) translateX(0); opacity:0;}
-    10%{opacity:1;}
-    100%{transform:translateY(-95vh) translateX(var(--drift,20px)); opacity:0;}
-  }
-
-  .scroll-cue{
-    position:absolute;bottom:2.4rem;
-    font-family:'JetBrains Mono',monospace;
-    font-size:0.65rem;
-    letter-spacing:0.2em;
-    text-transform:uppercase;
-    color:var(--humo);
-    display:flex;flex-direction:column;align-items:center;gap:0.5rem;
-  }
-  .scroll-cue::after{
-    content:"";
-    width:1px;height:32px;
-    background:linear-gradient(var(--ember), transparent);
-    animation:pulse-line 2s ease-in-out infinite;
-  }
-  @keyframes pulse-line{0%,100%{opacity:0.3;}50%{opacity:1;}}
-
-  section{padding:7rem 6vw;}
-  .section-head{max-width:640px;margin:0 auto 3.2rem;text-align:center;}
-  .eyebrow{
-    font-family:'JetBrains Mono', monospace;
-    font-size:1.5rem;
-    letter-spacing:0.24em;
-    text-transform:uppercase;
-    color:var(--brasa);
-    display:block;
-    margin-bottom:0.9rem;
-  }
-  .section-head h2{
-    font-size:clamp(2rem, 5vw, 3.2rem);
-    color:var(--hueso);
-  }
-  .section-head p{
-    margin-top:1rem;
-    color:var(--hueso-dim);
-    font-weight:300;
-  }
-
-  /* ---------- about ---------- */
-  .about{
-    display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(min(340px, 100%), 1fr));
-    gap:4rem;
-    align-items:center;
-    max-width:1180px;
-    margin:0 auto;
-  }
-  .about-photos{
-    display:flex;
-    flex-direction:column;
-    gap:0.9rem;
-  }
-  .about-photos img{
-    width:100%;
-    aspect-ratio:4/3;
-    object-fit:cover;
-    filter:sepia(0.15) saturate(1.1) contrast(1.05);
-    border:1px solid rgba(232,163,61,0.15);
-    display:block;
-  }
-  .about-text .eyebrow{margin-bottom:0.7rem;}
-  .about-text h2{font-size:clamp(1.8rem,4vw,2.6rem);margin-bottom:1.2rem;}
-  .about-text p{color:var(--hueso-dim);font-weight:300;margin-bottom:1rem;}
-  .about-stats{
-    display:flex;
-    gap:2.4rem;
-    margin-top:2rem;
-    padding-top:1.6rem;
-    border-top:1px solid rgba(154,143,125,0.25);
-  }
-  .about-stats div strong{
-    display:block;
-    font-family:'Fraunces',serif;
-    font-size:1.8rem;
-    color:var(--ember);
-  }
-  .about-stats div span{
-    font-family:'JetBrains Mono',monospace;
-    font-size:0.68rem;
-    letter-spacing:0.08em;
-    text-transform:uppercase;
-    color:var(--humo);
-  }
-
-  /* ---------- menu ---------- */
-  .menu-tabs{
-    display:flex;
-    justify-content:center;
-    gap:0.6rem;
-    flex-wrap:wrap;
-    margin-bottom:3rem;
-  }
-  .menu-tab{
-    font-family:'JetBrains Mono',monospace;
-    font-size:0.72rem;
-    letter-spacing:0.1em;
-    text-transform:uppercase;
-    padding:0.6rem 1.1rem;
-    border:1px solid rgba(154,143,125,0.3);
-    color:var(--hueso-dim);
-    border-radius:2px;
-    cursor:pointer;
-    background:transparent;
-    transition:all 0.2s;
-  }
-  .menu-tab:hover{border-color:var(--ember);color:var(--ember);}
-  .menu-tab.active{background:var(--brasa);border-color:var(--brasa);color:var(--hueso);}
-
-  .menu-group{display:none;}
-  .menu-group.active{display:block;animation:fadein 0.4s ease;}
-  @keyframes fadein{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
-
-  .menu-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
-    gap:1.8rem;
-    max-width:1180px;
-    margin:0 auto;
-  }
-  .dish{
-    background:var(--carbon-2);
-    border:1px solid rgba(154,143,125,0.15);
-    overflow:hidden;
-    transition:transform 0.3s, border-color 0.3s;
-  }
-  .dish:hover{transform:translateY(-4px);border-color:rgba(232,163,61,0.4);}
-  .dish img{
-    width:100%;
-    aspect-ratio:4/3;
-    object-fit:cover;
-    display:block;
-    filter:saturate(1.05) contrast(1.03);
-  }
-  .dish-body{padding:1.2rem 1.3rem 1.4rem;}
-  .dish-top{display:flex;justify-content:space-between;align-items:baseline;gap:0.6rem;}
-  .dish-top h3{font-size:1.15rem;color:var(--hueso);}
-  .dish-price{
-    font-family:'JetBrains Mono',monospace;
-    color:var(--ember);
-    font-size:0.95rem;
-    white-space:nowrap;
-  }
-  .dish p{
-    margin-top:0.5rem;
-    font-size:0.88rem;
-    color:var(--hueso-dim);
-    font-weight:300;
-  }
-
-  /* ---------- location ---------- */
-  .location{
-    display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(min(340px, 100%), 1fr));
-    gap:3rem;
-    max-width:1180px;
-    margin:0 auto;
-    align-items:stretch;
-  }
-  .location-info h2{font-size:clamp(1.8rem,4vw,2.6rem);margin-bottom:1.4rem;}
-  .info-row{
-    display:flex;
-    gap:1rem;
-    padding:1.1rem 0;
-    border-top:1px solid rgba(154,143,125,0.2);
-  }
-  .info-row:last-child{border-bottom:1px solid rgba(154,143,125,0.2);}
-  .info-label{
-    font-family:'JetBrains Mono',monospace;
-    font-size:0.68rem;
-    letter-spacing:0.1em;
-    text-transform:uppercase;
-    color:var(--brasa);
-    min-width:110px;
-  }
-  .info-val{color:var(--hueso-dim);font-weight:300;}
-  .map-frame{
-    width:100%;
-    min-height:340px;
-    border:1px solid rgba(232,163,61,0.2);
-    filter:grayscale(0.3) sepia(0.15) contrast(1.05);
-  }
-
-  /* ---------- footer / contact ---------- */
-  footer{
-    padding:4.5rem 6vw 2.5rem;
-    text-align:center;
-  }
-  footer h2{font-size:clamp(1.8rem,5vw,2.8rem);margin-bottom:1.2rem;}
-  .contact-ctas{
-    display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;
-    margin-top:1.8rem;
-  }
-  .foot-bottom{
-    margin-top:4rem;
-    padding-top:1.6rem;
-    border-top:1px solid rgba(154,143,125,0.15);
-    display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;
-    font-family:'JetBrains Mono',monospace;
-    font-size:0.68rem;
-    letter-spacing:0.06em;
-    color:var(--humo);
-  }
-
-  @media (max-width:820px){
-    .map-frame{order:-1;}
-    nav{
-      position:fixed;top:0;right:0;height:100svh;width:70vw;max-width:300px;
-      background:var(--carbon-2);
-      flex-direction:column;
-      justify-content:center;
-      align-items:flex-start;
-      padding:2rem 2.4rem;
-      gap:1.8rem;
-      transform:translateX(100%);
-      transition:transform 0.35s ease;
-      border-left:1px solid rgba(232,163,61,0.15);
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Don Juan · Parrilla en Potrero de los Funes | San Luis</title>
+  <meta name="description" content="Parrilla Don Juan en Potrero de los Funes, San Luis. Los mejores cortes a la parrilla, pastas gourmet, postres artesanales y cava de vinos. Reservá tu mesa frente al lago.">
+  
+  <link rel="stylesheet" href="index.css">
+  <style>
+    /* ===== FIRE CANVAS BACKGROUND ===== */
+    #fireCanvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: -1;
     }
-    nav.open{transform:translateX(0);}
-    .nav-toggle{
-      display:block;
-      z-index:110;
-      background:none;border:none;
-      color:var(--hueso);
-      font-family:'JetBrains Mono',monospace;
-      font-size:1.2rem;
-      letter-spacing:0.1em;
-      text-transform:uppercase;
-      cursor:pointer;
+    /* Smoke wisps (CSS-only) */
+    .smoke-layer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      overflow: hidden;
     }
-  }
-</style>
+    .smoke-wisp {
+      position: absolute;
+      bottom: -20%;
+      border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(154,143,125,0.05) 0%, transparent 70%);
+      animation: smokeRise linear infinite;
+      filter: blur(40px);
+    }
+    @keyframes smokeRise {
+      0%   { transform: translateY(0) translateX(0) scale(1); opacity: 0; }
+      10%  { opacity: 0.6; }
+      50%  { opacity: 0.35; transform: translateY(-50vh) translateX(var(--sx, 30px)) scale(1.5); }
+      100% { opacity: 0; transform: translateY(-110vh) translateX(var(--sx2, -20px)) scale(2.5); }
+    }
+    /* Glowing coals strip at very bottom of page */
+    .coals-glow {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      height: 180px;
+      pointer-events: none;
+      z-index: -1;
+      background: 
+        radial-gradient(ellipse 120% 100% at 50% 100%, rgba(211,63,15,0.2) 0%, transparent 60%),
+        radial-gradient(ellipse 80% 80% at 30% 100%, rgba(232,154,60,0.1) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 70% at 70% 100%, rgba(211,63,15,0.12) 0%, transparent 50%);
+      animation: coalsGlowPulse 4s ease-in-out infinite alternate;
+    }
+    @keyframes coalsGlowPulse {
+      0%   { opacity: 0.65; }
+      100% { opacity: 1; }
+    }
+    /* Animated heat haze overlay */
+    .heat-haze {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      height: 300px;
+      pointer-events: none;
+      z-index: -1;
+      background: linear-gradient(to top, rgba(211,63,15,0.05), transparent);
+      animation: hazeShimmer 3s ease-in-out infinite alternate;
+    }
+    @keyframes hazeShimmer {
+      0%   { transform: scaleY(1); opacity: 0.5; }
+      100% { transform: scaleY(1.08); opacity: 0.85; }
+    }
+  </style>
 </head>
 <body>
 
-<header>
-  <div class="brand">DON <span>JUAN</span></div>
+<!-- ===== ANIMATED FIRE BACKGROUND ===== -->
+<canvas id="fireCanvas"></canvas>
+<div class="smoke-layer" id="smokeLayer"></div>
+<div class="coals-glow"></div>
+<div class="heat-haze"></div>
+
+<!-- NAV OVERLAY (mobile) -->
+<div class="nav-overlay" id="navOverlay"></div>
+
+<!-- ===================== HEADER ===================== -->
+<header id="mainHeader">
+  <a href="#" class="brand">DON <span>JUAN</span> <i class="brand-dot"></i></a>
+  
   <nav id="nav">
     <a href="#historia">Nosotros</a>
     <a href="#carta">Carta</a>
     <a href="#ubicacion">Ubicación</a>
     <a href="#contacto">Contacto</a>
   </nav>
-  <button class="nav-toggle" id="navToggle">☰</button>
+
+  <div class="nav-actions">
+    <button class="btn-header-reserve" id="headerReserveBtn">
+      <span>🔥 Reservar Mesa</span>
+    </button>
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">☰</button>
+  </div>
 </header>
 
-<section class="hero">
+<!-- ===================== HERO ===================== -->
+<section class="hero" id="hero">
   <div class="embers-bg" id="embersBg"></div>
-  <span class="hero-eyebrow">Potrero de los Funes · San Luis</span>
-  <h1>Parrilla <em>Don Juan</em></h1>
-  <p class="hero-sub">Donde el fuego enciende los sabores y cada encuentro se convierte en un recuerdo</p>
-  <div class="hero-ctas">
-    <a href="#carta" class="btn btn-fill">Ver la carta</a>
-    <a href="#ubicacion" class="btn btn-outline">Cómo llegar</a>
+  
+  <!-- Live Restaurant Status Pill -->
+  <div class="status-pill open" id="liveStatusPill">
+    <span class="status-indicator"></span>
+    <span id="liveStatusText">🟢 Abierto Ahora · Potrero de los Funes</span>
   </div>
-  <div class="scroll-cue">Deslizá</div>
+
+  <span class="hero-eyebrow">Parrilla & Cava · San Luis</span>
+  <h1>Parrilla <em>Don Juan</em></h1>
+  <p class="hero-sub">Donde el fuego enciende los sabores de la leña y cada encuentro se convierte en un recuerdo inolvidable</p>
+
+  <div class="hero-ctas">
+    <a href="#carta" class="btn btn-fill">Ver la carta en vivo</a>
+    <button class="btn btn-gold" id="heroReserveBtn">Reservar mesa WhatsApp</button>
+  </div>
+
+  <div class="hero-stats">
+    <div class="hero-stat-item">
+      <span class="hero-stat-val">100%</span>
+      <span class="hero-stat-lbl">Cortes Seleccionados</span>
+    </div>
+    <div class="hero-stat-item">
+      <span class="hero-stat-val">Quebracho</span>
+      <span class="hero-stat-lbl">Leña de Auténtica Brasa</span>
+    </div>
+    <div class="hero-stat-item">
+      <span class="hero-stat-val">4.0 ★</span>
+      <span class="hero-stat-lbl">Frente al Lago</span>
+    </div>
+  </div>
+
+  <div class="scroll-cue">Explorá la experiencia</div>
 </section>
 
 <div class="ember-line"></div>
 
+<!-- ===================== NOSOTROS ===================== -->
 <section id="historia">
   <div class="about">
-    <div class="about-photos">
-      <img src="fotos/historia-parrilla.jpg" alt="Frente de la parrilla Don Juan" onerror="this.onerror=null;this.src='https://placehold.co/700x525/2A1F16/E8A33D?font=roboto&text=FOTO%3A%0AFrente%20de%20la%20parrilla';">
-      <img src="fotos/historia-vino.jpg" alt="El mejor vino no es necesariamente el más caro sino el que se comparte" onerror="this.onerror=null;this.src='https://placehold.co/700x525/2A1F16/E8A33D?font=roboto&text=FOTO%3A%0AFrase%20de%20los%20corchos';">
+    <div class="about-photos reveal-left">
+      <img src="fotos/historia-parrilla.jpg" alt="Frente de la parrilla Don Juan en Potrero de los Funes" loading="lazy">
+      <img src="fotos/historia-vino.jpg" alt="Selección de vinos para compartir" loading="lazy">
+      <div class="about-badge">
+        <div class="about-badge-title">Fuego & Pasión</div>
+        <div class="about-badge-sub">Potrero de los Funes</div>
+      </div>
     </div>
-    <div class="about-text">
+
+    <div class="about-text reveal-right">
       <span class="eyebrow">Nuestra historia</span>
-      <h2>Asado con historia, sabor que invita a volver</h2>
-      <p>En Don Juan creemos que una buena parrilla comienza mucho antes de llegar a la mesa. Empieza con la elección de los mejores cortes, el fuego encendido con paciencia y el compromiso de cocinar cada plato como merece.</p>
-      <p>Recibimos a cada visitante con la misma dedicación de siempre: sabores auténticos, atención cercana y el deseo de que cada comida sea un momento para recordar.</p>
+      <h2>Asado con identidad, fuego que invita a volver</h2>
+      <p>En Don Juan creemos que el verdadero asado comienza mucho antes de servir la mesa. Empieza al elegir minuciosamente los mejores cortes de ternera, encender la leña de quebracho con paciencia y dedicarle a cada plato el tiempo que merece.</p>
+      <p>Ubicados frente al espejo de agua de Potrero de los Funes, recibimos a cada visitante con la calidez de siempre: sabores auténticos, una cava con etiquetas seleccionadas y el compromiso de hacer de tu visita un momento memorable.</p>
+      
+      <div class="about-quote">
+        "El secreto no es solo la carne, es el tiempo y el respeto que le damos a las brasas."
+      </div>
     </div>
   </div>
 </section>
 
 <div class="ember-line"></div>
 
+<!-- ===================== CARTA ===================== -->
 <section id="carta">
-  <div class="section-head">
-    <span class="eyebrow">La carta</span>
-    <h2>Lo que sale de la parrilla</h2>
+  <div class="section-head reveal">
+    <span class="eyebrow">Nuestra propuesta gastronómica</span>
+    <h2>La Carta de la Parrilla</h2>
+    <p>Tocá cualquier plato para ver maridajes recomendados y detalles especiales</p>
   </div>
 
-  <div class="menu-tabs">
-    <button class="menu-tab active" data-target="entradas">Entradas</button>
-    <button class="menu-tab" data-target="parrilla">Parrilla</button>
-    <button class="menu-tab" data-target="gourmet">Gourmet</button>
-    <button class="menu-tab" data-target="cocina">Cocina</button>
-    <button class="menu-tab" data-target="acompanamientos">Acompañamientos</button>
-    <button class="menu-tab" data-target="postres">Postres</button>
-    <button class="menu-tab" data-target="bebidas">Bebidas</button>
-    <button class="menu-tab" data-target="vinos">Vinos</button>
-  </div>
-
-  <!-- ENTRADAS -->
-  <div class="menu-group active" id="entradas">
-    <div class="menu-grid">
-      <article class="dish">
-        <img src="fotos/bastones-de-queso-muzzarella.jpg" alt="Bastones de queso muzzarella" onerror="this.onerror=null;this.src='https://placehold.co/600x450/3A2A1B/E8A33D?text=FOTO%3A%20Bastones%20de%20muzzarella';">
-        <div class="dish-body"><div class="dish-top"><h3>Bastones de queso muzzarella</h3></div>
-          <p>Rebozados en batido inglés, servidos con dip de tomate.</p></div>
-      </article>
-      <article class="dish">
-        <img src="fotos/empanadas.jpg" alt="Empanadas" onerror="this.onerror=null;this.src='https://placehold.co/600x450/3A2A1B/E8A33D?text=FOTO%3A%20Empanadas';">
-        <div class="dish-body"><div class="dish-top"><h3>Empanadas</h3></div>
-          <p>A elección: carne, jamón y queso, osobuco o chivo.</p></div>
-      </article>
-      <article class="dish">
-        <img src="fotos/lengua-a-la-vinagreta.jpg" alt="Lengua a la vinagreta" onerror="this.onerror=null;this.src='https://placehold.co/600x450/3A2A1B/E8A33D?text=FOTO%3A%20Lengua%20a%20la%20vinagreta';">
-        <div class="dish-body"><div class="dish-top"><h3>Lengua a la vinagreta</h3></div>
-          <p>Lengua de vacuno en láminas, con vinagre blanco y huevo duro.</p></div>
-      </article>
-      <article class="dish">
-        <img src="fotos/provoleta.jpg" alt="Provoleta" onerror="this.onerror=null;this.src='https://placehold.co/600x450/3A2A1B/E8A33D?text=FOTO%3A%20Provoleta';">
-        <div class="dish-body"><div class="dish-top"><h3>Provoleta</h3></div>
-          <p>Queso fundido al calor, con tomates cherry, especias y aceite de oliva.</p></div>
-      </article>
-      <article class="dish">
-        <img src="fotos/mollejas-a-la-parrilla.jpg" alt="Mollejas a la parrilla" onerror="this.onerror=null;this.src='https://placehold.co/600x450/3A2A1B/E8A33D?text=FOTO%3A%20Mollejas%20a%20la%20parrilla';">
-        <div class="dish-body"><div class="dish-top"><h3>Mollejas a la parrilla</h3></div>
-          <p>Con limón, sal y pimienta, a la provenzal.</p></div>
-      </article>
-      <article class="dish">
-        <img src="fotos/rabas.jpg" alt="Rabas" onerror="this.onerror=null;this.src='https://placehold.co/600x450/1B2A3A/E8A33D?text=FOTO%3A%20Rabas';">
-        <div class="dish-body"><div class="dish-top"><h3>Rabas</h3></div>
-          <p>Calamares apanados, acompañados de mayonesa aioli.</p></div>
-      </article>
-      <article class="dish">
-        <img src="fotos/langostino-parmesano.jpg" alt="Langostino Parmesano" onerror="this.onerror=null;this.src='https://placehold.co/600x450/1B2A3A/E8A33D?text=FOTO%3A%20Langostino%20Parmesano';">
-        <div class="dish-body"><div class="dish-top"><h3>Langostino Parmesano</h3></div>
-          <p>Langostinos, manteca, crema, coñac y queso parmesano.</p></div>
-      </article>
-      <article class="dish">
-        <img src="fotos/langostino-apanado.jpg" alt="Langostino Apanado" onerror="this.onerror=null;this.src='https://placehold.co/600x450/1B2A3A/E8A33D?text=FOTO%3A%20Langostino%20Apanado';">
-        <div class="dish-body"><div class="dish-top"><h3>Langostino Apanado</h3></div>
-          <p>Crujientes langostinos rebozados en coco, con variadas salsas.</p></div>
-      </article>
-      <article class="dish">
-        <img src="fotos/duo-de-mar.jpg" alt="Duo de Mar" onerror="this.onerror=null;this.src='https://placehold.co/600x450/1B2A3A/E8A33D?text=FOTO%3A%20Duo%20de%20Mar';">
-        <div class="dish-body"><div class="dish-top"><h3>Duo de Mar</h3></div>
-          <p>Rabas y camarones apanados, acompañados de variadas salsas.</p></div>
-      </article>
+  <div class="menu-controls">
+    <!-- Live Search Box -->
+    <div class="search-box-wrap reveal">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="menuSearchInput" class="search-input" placeholder="Buscar plato, ingrediente (ej. entraña, provoleta, sin tacc)..." autocomplete="off">
+      <span class="search-clear" id="searchClearBtn">✕</span>
     </div>
+
+    <!-- Category Tabs -->
+    <div class="menu-tabs reveal" id="menuTabs"></div>
   </div>
 
-  <!-- PARRILLA -->
-  <div class="menu-group" id="parrilla">
-    <div class="menu-grid">
-      <article class="dish">
-        <img src="fotos/parrilla-tradicional.jpg" alt="Parrilla Tradicional" onerror="this.onerror=null;this.src='https://placehold.co/600x450/3A2A1B/C1440E?text=FOTO%3A%20Parrilla%20Tradicional';">
-        <div class="dish-body"><div class="dish-top"><h3>Parrilla Tradicional</h3></div>
-          <p>Tira de asado, vacío, cerdo, pollo, chorizo, morcilla y chinchulines. Para 2, 3 o 4 personas.</p></div>
-      </article>
-      <article class="dish">
-        <img src="fotos/parrilla-don-juan.jpg" alt="Parrilla Don Juan" onerror="this.onerror=null;this.src='https://placehold.co/600x450/3A2A1B/C1440E?text=FOTO%3A%20Parrilla%20Don%20Juan';">
-        <div class="dish-body"><div class="dish-top"><h3>Parrilla Don Juan</h3></div>
-          <p>Tira de asado, vacío, cerdo, pollo, matambre de cerdo y mollejas. Para 2, 3 o 4 personas.</p></div>
-      </article>
-      <article class="dish">
-        <img src="fotos/vacio.jpg" alt="Vacío" onerror="this.onerror=null;this.src='https://placehold.co/600x450/3A2A1B/C1440E?text=FOTO%3A%20Vac%C3%ADo';">
-        <div class="dish-body"><div class="dish-top"><h3>Vacío</h3></div><p>Corte clásico a la parrilla.</p></div>
-      </article>
-      <article class="dish">
-        <img src="fotos/bife-de-chorizo.jpg" alt="Bife de Chorizo" onerror="this.onerror=null;this.src='https://placehold.co/600x450/3A2A1B/C1440E?text=FOTO%3A%20Bife%20de%20Chorizo';">
-        <div class="dish-body"><div class="dish-top"><h3>Bife de Chorizo</h3></div><p>Corte grueso, sellado a fuego fuerte.</p></div>
-      </article>
-      <article class="dish">
-        <img src="fotos/entrana.jpg" alt="Entraña" onerror="this.onerror=null;this.src='https://placehold.co/600x450/3A2A1B/C1440E?text=FOTO%3A%20Entra%C3%B1a';">
-        <div class="dish-body"><div class="dish-top"><h3>Entraña</h3></div><p>Fina y sabrosa, a las brasas.</p></div>
-      </article>
-      <article class="dish">
-        <img src="fotos/tira-de-asado.jpg" alt="Tira de Asado" onerror="this.onerror=null;this.src='https://placehold.co/600x450/3A2A1B/C1440E?text=FOTO%3A%20Tira%20de%20Asado';">
-        <div class="dish-body"><div class="dish-top"><h3>Tira de Asado</h3></div><p>Cocción lenta a las brasas, el clásico de siempre.</p></div>
-      </article>
-      <article class="dish">
-        <img src="fotos/lomo-grille.jpg" alt="Lomo Grille" onerror="this.onerror=null;this.src='https://placehold.co/600x450/3A2A1B/C1440E?text=FOTO%3A%20Lomo%20Grille';">
-        <div class="dish-body"><div class="dish-top"><h3>Lomo Grille</h3></div><p>Lomo asado a la parrilla, en su punto.</p></div>
-      </article>
-      <article class="dish">
-        <img src="fotos/matambre-de-cerdo.jpg" alt="Matambre de Cerdo" onerror="this.onerror=null;this.src='https://placehold.co/600x450/3A2A1B/C1440E?text=FOTO%3A%20Matambre%20de%20Cerdo';">
-        <div class="dish-body"><div class="dish-top"><h3>Matambre de Cerdo</h3></div><p>Asado a la parrilla, tierno y jugoso.</p></div>
-      </article>
-      <article class="dish">
-        <img src="fotos/pechuga-de-pollo.jpg" alt="Pechuga de Pollo" onerror="this.onerror=null;this.src='https://placehold.co/600x450/3A2A1B/E8A33D?text=FOTO%3A%20Pechuga%20de%20Pollo';">
-        <div class="dish-body"><div class="dish-top"><h3>Pechuga de Pollo</h3></div>
-          <p>Asada a la parrilla, con limón o con crema al roquefort.</p></div>
-      </article>
-    </div>
-  </div>
-
-  <!-- GOURMET -->
-  <div class="menu-group" id="gourmet">
-    <div class="menu-grid">
-      <article class="dish">
-        <img src="fotos/entrana-rellena.jpg" alt="Entraña Rellena" onerror="this.onerror=null;this.src='https://placehold.co/600x450/3A2A1B/E8A33D?text=FOTO%3A%20Entra%C3%B1a%20Rellena';">
-        <div class="dish-body"><div class="dish-top"><h3>Entraña Rellena</h3></div>
-          <p>Adobada en chimichurri casero, con pimiento morrón asado, jamón y queso provoleta, envuelta en masa.</p></div>
-      </article>
-      <article class="dish">
-        <img src="fotos/carne-a-la-masa.jpg" alt="Carne a la Masa" onerror="this.onerror=null;this.src='https://placehold.co/600x450/3A2A1B/E8A33D?text=FOTO%3A%20Carne%20a%20la%20Masa';">
-        <div class="dish-body"><div class="dish-top"><h3>Carne a la Masa</h3></div>
-          <p>Carne de ternera en su punto exacto, con verduras asadas, romero, aliños y vino tinto.</p></div>
-      </article>
-      <article class="dish">
-        <img src="fotos/bife-de-chorizo-a-lo-pobre.jpg" alt="Bife de Chorizo a lo Pobre" onerror="this.onerror=null;this.src='https://placehold.co/600x450/3A2A1B/E8A33D?text=FOTO%3A%20Bife%20a%20lo%20Pobre';">
-        <div class="dish-body"><div class="dish-top"><h3>Bife de Chorizo a lo Pobre</h3></div>
-          <p>Acompañado de papas fritas, huevo y cebolla caramelizada.</p></div>
-      </article>
-      <article class="dish">
-        <img src="fotos/bife-de-chorizo-don-juan.jpg" alt="Bife de Chorizo Don Juan" onerror="this.onerror=null;this.src='https://placehold.co/600x450/3A2A1B/E8A33D?text=FOTO%3A%20Bife%20Don%20Juan';">
-        <div class="dish-body"><div class="dish-top"><h3>Bife de Chorizo Don Juan</h3></div>
-          <p>Relleno de queso muzzarella, langostinos, champignon, jamón y morrones asados.</p></div>
-      </article>
-      <article class="dish">
-        <img src="fotos/matambre-de-cerdo-a-la-pizza.jpg" alt="Matambre de Cerdo a la Pizza" onerror="this.onerror=null;this.src='https://placehold.co/600x450/3A2A1B/E8A33D?text=FOTO%3A%20Matambre%20a%20la%20Pizza';">
-        <div class="dish-body"><div class="dish-top"><h3>Matambre de Cerdo a la Pizza</h3></div>
-          <p>Asado a la parrilla, con tomate, jamón y queso.</p></div>
-      </article>
-      <article class="dish">
-        <img src="fotos/lomo-terra-mar.jpg" alt="Lomo Terra Mar" onerror="this.onerror=null;this.src='https://placehold.co/600x450/3A2A1B/E8A33D?text=FOTO%3A%20Lomo%20Terra%20Mar';">
-        <div class="dish-body"><div class="dish-top"><h3>Lomo Terra Mar</h3></div>
-          <p>Dos medallones de lomo, con salsa de langostinos, champignon y verduras salteadas en coñac, manteca y crema.</p></div>
-      </article>
-      <article class="dish">
-        <img src="fotos/lomo-champignon.jpg" alt="Lomo Champignon" onerror="this.onerror=null;this.src='https://placehold.co/600x450/3A2A1B/E8A33D?text=FOTO%3A%20Lomo%20Champignon';">
-        <div class="dish-body"><div class="dish-top"><h3>Lomo Champignon</h3></div>
-          <p>Dos medallones de lomo, con salsa de champignon, salteados en coñac, manteca y crema.</p></div>
-      </article>
-    </div>
-  </div>
-
-  <!-- COCINA -->
-  <div class="menu-group" id="cocina">
-    <div class="menu-grid">
-      <article class="dish">
-        <img src="fotos/milanesas.jpg" alt="Milanesas" onerror="this.onerror=null;this.src='https://placehold.co/600x450/3A2A1B/E8A33D?text=FOTO%3A%20Milanesas';">
-        <div class="dish-body"><div class="dish-top"><h3>Milanesas</h3></div>
-          <p>De carne o de pollo. También a caballo (con huevo frito) o a la napolitana (jamón, queso y salsa).</p></div>
-      </article>
-      <article class="dish">
-        <img src="fotos/raviolon-de-salmon-con-salsa-de-langostinos.jpg" alt="Raviolón de Salmón con Salsa de Langostinos" onerror="this.onerror=null;this.src='https://placehold.co/600x450/3A1B2A/E8A33D?text=FOTO%3A%20Raviol%C3%B3n%20de%20Salm%C3%B3n';">
-        <div class="dish-body"><div class="dish-top"><h3>Raviolón de Salmón con Salsa de Langostinos</h3></div>
-          <p>Masa en tinta de calamar, con salsa de langostinos, verdura, crema y coñac.</p></div>
-      </article>
-      <article class="dish">
-        <img src="fotos/raviolon-de-jamon-y-queso.jpg" alt="Raviolón de Jamón y Queso" onerror="this.onerror=null;this.src='https://placehold.co/600x450/3A1B2A/E8A33D?text=FOTO%3A%20Raviol%C3%B3n%20Jam%C3%B3n%20y%20Queso';">
-        <div class="dish-body"><div class="dish-top"><h3>Raviolón de Jamón y Queso</h3></div>
-          <p>Acompañado de salsa a elección.</p></div>
-      </article>
-      <article class="dish">
-        <img src="fotos/raviolon-de-lomo-al-vino-blanco.jpg" alt="Raviolón de Lomo al Vino Blanco" onerror="this.onerror=null;this.src='https://placehold.co/600x450/3A1B2A/E8A33D?text=FOTO%3A%20Raviol%C3%B3n%20de%20Lomo';">
-        <div class="dish-body"><div class="dish-top"><h3>Raviolón de Lomo al Vino Blanco</h3></div>
-          <p>Acompañado de salsa a elección.</p></div>
-      </article>
-      <article class="dish">
-        <img src="fotos/raviol-de-pollo-y-verdura.jpg" alt="Raviol de Pollo y Verdura" onerror="this.onerror=null;this.src='https://placehold.co/600x450/3A1B2A/E8A33D?text=FOTO%3A%20Raviol%20de%20Pollo';">
-        <div class="dish-body"><div class="dish-top"><h3>Raviol de Pollo y Verdura</h3></div>
-          <p>Acompañado de salsa a elección.</p></div>
-      </article>
-      <article class="dish">
-        <img src="fotos/fetuchini.jpg" alt="Fetuchini" onerror="this.onerror=null;this.src='https://placehold.co/600x450/3A1B2A/E8A33D?text=FOTO%3A%20Fetuchini';">
-        <div class="dish-body"><div class="dish-top"><h3>Fetuchini</h3></div>
-          <p>Acompañado de salsa a elección.</p></div>
-      </article>
-    </div>
-    <p style="text-align:center;color:var(--hueso-dim);font-weight:300;margin-top:2rem;font-size:0.9rem;">Salsas a elección: bolognesa, blanca, roja o mixta. Salsas gourmet: langostino, roquefort, champignon, pollo, terramar o crema.</p>
-  </div>
-
-  <!-- ACOMPAÑAMIENTOS -->
-  <div class="menu-group" id="acompanamientos">
-    <div class="menu-grid">
-      <article class="dish">
-        <img src="fotos/cacho-de-buenos-aires.jpg" alt="Cacho de Buenos Aires" onerror="this.onerror=null;this.src='https://placehold.co/600x450/2E3A1F/E8A33D?text=FOTO%3A%20Cacho%20de%20Buenos%20Aires';">
-        <div class="dish-body"><div class="dish-top"><h3>Cacho de Buenos Aires</h3></div>
-          <p>Tomate cherry, zanahoria, choclo, palta y rúcula fresca, con mix de semillas, aderezo de oliva y albahaca.</p></div>
-      </article>
-      <article class="dish">
-        <img src="fotos/gaucho-buenaventura.jpg" alt="Gaucho Buenaventura" onerror="this.onerror=null;this.src='https://placehold.co/600x450/2E3A1F/E8A33D?text=FOTO%3A%20Gaucho%20Buenaventura';">
-        <div class="dish-body"><div class="dish-top"><h3>Gaucho Buenaventura</h3></div>
-          <p>A la parrilla: pimientos asados, cebolla, zanahoria, berenjenas y tomate, con aceite de oliva y aliños.</p></div>
-      </article>
-      <article class="dish">
-        <img src="fotos/el-chaqueno.jpg" alt="El Chaqueño" onerror="this.onerror=null;this.src='https://placehold.co/600x450/2E3A1F/E8A33D?text=FOTO%3A%20El%20Chaqueño';">
-        <div class="dish-body"><div class="dish-top"><h3>El Chaqueño</h3></div>
-          <p>Rúcula, parmesano, jamón serrano y tomate cherry.</p></div>
-      </article>
-      <article class="dish">
-        <img src="fotos/ensalada-don-juan.jpg" alt="Ensalada Don Juan" onerror="this.onerror=null;this.src='https://placehold.co/600x450/2E3A1F/E8A33D?text=FOTO%3A%20Ensalada%20Don%20Juan';">
-        <div class="dish-body"><div class="dish-top"><h3>Don Juan</h3></div>
-          <p>Armá tu ensalada eligiendo tres: lechuga, rúcula, tomate, tomate cherry, huevo, zanahoria, cebolla, queso en cubos o parmesano.</p></div>
-      </article>
-      <article class="dish">
-        <img src="fotos/ensalada-mixta.jpg" alt="Ensalada Mixta" onerror="this.onerror=null;this.src='https://placehold.co/600x450/2E3A1F/E8A33D?text=FOTO%3A%20Ensalada%20Mixta';">
-        <div class="dish-body"><div class="dish-top"><h3>Ensalada Mixta</h3></div>
-          <p>Lechuga, tomate y cebolla.</p></div>
-      </article>
-      <article class="dish">
-        <img src="fotos/ensalada-rusa.jpg" alt="Ensalada Rusa" onerror="this.onerror=null;this.src='https://placehold.co/600x450/2E3A1F/E8A33D?text=FOTO%3A%20Ensalada%20Rusa';">
-        <div class="dish-body"><div class="dish-top"><h3>Ensalada Rusa</h3></div>
-          <p>Papa, huevo, zanahoria y arvejas.</p></div>
-      </article>
-      <article class="dish">
-        <img src="fotos/arroz.jpg" alt="Arroz" onerror="this.onerror=null;this.src='https://placehold.co/600x450/2E3A1F/E8A33D?text=FOTO%3A%20Arroz';">
-        <div class="dish-body"><div class="dish-top"><h3>Arroz</h3></div>
-          <p>Guarnición clásica.</p></div>
-      </article>
-      <article class="dish">
-        <img src="fotos/pure.jpg" alt="Puré" onerror="this.onerror=null;this.src='https://placehold.co/600x450/2E3A1F/E8A33D?text=FOTO%3A%20Pur%C3%A9';">
-        <div class="dish-body"><div class="dish-top"><h3>Puré</h3></div>
-          <p>Guarnición clásica.</p></div>
-      </article>
-      <article class="dish">
-        <img src="fotos/papas.jpg" alt="Papas" onerror="this.onerror=null;this.src='https://placehold.co/600x450/2E3A1F/E8A33D?text=FOTO%3A%20Papas';">
-        <div class="dish-body"><div class="dish-top"><h3>Papas</h3></div>
-          <p>Fritas, a la provenzal, con huevo o doradas.</p></div>
-      </article>
-    </div>
-  </div>
-
-  <!-- POSTRES -->
-  <div class="menu-group" id="postres">
-    <div class="menu-grid">
-      <article class="dish">
-        <img src="fotos/ensalada-de-frutas.jpg" alt="Ensalada de Frutas" onerror="this.onerror=null;this.src='https://placehold.co/600x450/3A2A1B/E8A33D?text=FOTO%3A%20Ensalada%20de%20Frutas';">
-        <div class="dish-body"><div class="dish-top"><h3>Ensalada de Frutas</h3></div><p>Frutas frescas de estación.</p></div>
-      </article>
-      <article class="dish">
-        <img src="fotos/vigilantes.jpg" alt="Vigilantes" onerror="this.onerror=null;this.src='https://placehold.co/600x450/3A2A1B/E8A33D?text=FOTO%3A%20Vigilantes';">
-        <div class="dish-body"><div class="dish-top"><h3>Vigilantes</h3></div><p>Queso y dulce.</p></div>
-      </article>
-      <article class="dish">
-        <img src="fotos/zapallitos-en-almibar.jpg" alt="Zapallitos en Almíbar" onerror="this.onerror=null;this.src='https://placehold.co/600x450/3A2A1B/E8A33D?text=FOTO%3A%20Zapallitos%20en%20Almibar';">
-        <div class="dish-body"><div class="dish-top"><h3>Zapallitos en Almíbar</h3></div><p>Solos o con queso.</p></div>
-      </article>
-      <article class="dish">
-        <img src="fotos/higos-en-almibar.jpg" alt="Higos en Almíbar" onerror="this.onerror=null;this.src='https://placehold.co/600x450/3A2A1B/E8A33D?text=FOTO%3A%20Higos%20en%20Almibar';">
-        <div class="dish-body"><div class="dish-top"><h3>Higos en Almíbar</h3></div><p>Solos o con queso.</p></div>
-      </article>
-      <article class="dish">
-        <img src="fotos/copa-don-pedro.jpg" alt="Copa Don Pedro" onerror="this.onerror=null;this.src='https://placehold.co/600x450/3A2A1B/E8A33D?text=FOTO%3A%20Copa%20Don%20Pedro';">
-        <div class="dish-body"><div class="dish-top"><h3>Copa Don Pedro</h3></div><p>Crema americana, nueces y whisky.</p></div>
-      </article>
-      <article class="dish">
-        <img src="fotos/copa-don-juan.jpg" alt="Copa Don Juan" onerror="this.onerror=null;this.src='https://placehold.co/600x450/3A2A1B/E8A33D?text=FOTO%3A%20Copa%20Don%20Juan';">
-        <div class="dish-body"><div class="dish-top"><h3>Copa Don Juan</h3></div>
-          <p>Frutas de estación, trilogía de helado, salsa, galletas, dulce de leche y crema.</p></div>
-      </article>
-      <article class="dish">
-        <img src="fotos/copa-potrero.jpg" alt="Copa Potrero" onerror="this.onerror=null;this.src='https://placehold.co/600x450/3A2A1B/E8A33D?text=FOTO%3A%20Copa%20Potrero';">
-        <div class="dish-body"><div class="dish-top"><h3>Copa Potrero</h3></div>
-          <p>Tres sabores de helado a elección, con galletas y salsa.</p></div>
-      </article>
-      <article class="dish">
-        <img src="fotos/flan-casero.jpg" alt="Flan Casero" onerror="this.onerror=null;this.src='https://placehold.co/600x450/3A2A1B/E8A33D?text=FOTO%3A%20Flan%20Casero';">
-        <div class="dish-body"><div class="dish-top"><h3>Flan Casero</h3></div>
-          <p>Solo, con dulce de leche, con crema o mixto (dulce de leche y crema).</p></div>
-      </article>
-      <article class="dish">
-        <img src="fotos/panqueques-celestino.jpg" alt="Panqueques Celestino" onerror="this.onerror=null;this.src='https://placehold.co/600x450/3A2A1B/E8A33D?text=FOTO%3A%20Panqueques%20Celestino';">
-        <div class="dish-body"><div class="dish-top"><h3>Panqueques Celestino</h3></div>
-          <p>Con dulce de leche, o con dulce de leche y bocha de helado.</p></div>
-      </article>
-      <article class="dish">
-        <img src="fotos/adictos-al-chocolate.jpg" alt="Adictos al Chocolate" onerror="this.onerror=null;this.src='https://placehold.co/600x450/3A2A1B/E8A33D?text=FOTO%3A%20Adictos%20al%20Chocolate';">
-        <div class="dish-body"><div class="dish-top"><h3>Adictos al Chocolate</h3></div>
-          <p>Base de brownie con chocolate, con salsa, ralladura de bitter y helado de chocolate.</p></div>
-      </article>
-    </div>
-  </div>
-
-  <!-- BEBIDAS -->
-  <div class="menu-group" id="bebidas">
-    <div class="menu-grid">
-      <article class="dish">
-        <img src="fotos/gaseosas-y-aguas-saborizadas.jpg" alt="Gaseosas y Aguas Saborizadas" onerror="this.onerror=null;this.src='https://placehold.co/600x450/1B2A3A/E8A33D?text=FOTO%3A%20Gaseosas%20y%20Aguas';">
-        <div class="dish-body"><div class="dish-top"><h3>Gaseosas y Aguas Saborizadas</h3></div>
-          <p>Agua con o sin gas, aguas saborizadas y gaseosas.</p></div>
-      </article>
-      <article class="dish">
-        <img src="fotos/cervezas.jpg" alt="Cervezas" onerror="this.onerror=null;this.src='https://placehold.co/600x450/1B2A3A/E8A33D?text=FOTO%3A%20Cervezas';">
-        <div class="dish-body"><div class="dish-top"><h3>Cervezas</h3></div>
-          <p>Corona (con y sin alcohol), Stella, Andes y Quilmes.</p></div>
-      </article>
-      <article class="dish">
-        <img src="fotos/tragos.jpg" alt="Tragos" onerror="this.onerror=null;this.src='https://placehold.co/600x450/1B2A3A/E8A33D?text=FOTO%3A%20Tragos';">
-        <div class="dish-body"><div class="dish-top"><h3>Tragos</h3></div>
-          <p>Campari, fernet con coca, gancia con sprite, gin tónica y whisky (Black Label o Red Label).</p></div>
-      </article>
-    </div>
-  </div>
-
-  <!-- VINOS -->
-  <div class="menu-group" id="vinos">
-    <div class="menu-grid">
-      <article class="dish">
-        <img src="fotos/vino-por-copa.jpg" alt="Vino por Copa" onerror="this.onerror=null;this.src='https://placehold.co/600x450/2A1B14/E8A33D?text=FOTO%3A%20Vino%20por%20Copa';">
-        <div class="dish-body"><div class="dish-top"><h3>Vino por copa</h3></div>
-          <p>Las Perdices, Malbec o Chardonnay.</p></div>
-      </article>
-      <article class="dish">
-        <img src="fotos/vinos-blancos-y-dulces.jpg" alt="Vinos Blancos y Dulces" onerror="this.onerror=null;this.src='https://placehold.co/600x450/2A1B14/E8A33D?text=FOTO%3A%20Vinos%20Blancos';">
-        <div class="dish-body"><div class="dish-top"><h3>Blancos y blancos dulces</h3></div>
-          <p>Partridge Chardonnay, Las Perdices Sauvignon Blanc, Santa Julia Chardonnay y Santa Julia Chenin Dulce.</p></div>
-      </article>
-      <article class="dish">
-        <img src="fotos/vinos-tintos-jovenes.jpg" alt="Vinos Tintos Jóvenes" onerror="this.onerror=null;this.src='https://placehold.co/600x450/2A1B14/C1440E?text=FOTO%3A%20Tintos%20J%C3%B3venes';">
-        <div class="dish-body"><div class="dish-top"><h3>Tintos jóvenes</h3></div>
-          <p>Partridge, Viñas Puntanas, Cordero con Piel de Lobo, Las Perdices, Casillero del Diablo, Tomero, Sombrero, Trumpenter y Manos Negras, entre otros.</p></div>
-      </article>
-      <article class="dish">
-        <img src="fotos/vinos-tintos-con-crianza.jpg" alt="Vinos Tintos con Crianza" onerror="this.onerror=null;this.src='https://placehold.co/600x450/2A1B14/C1440E?text=FOTO%3A%20Tintos%20con%20Crianza';">
-        <div class="dish-body"><div class="dish-top"><h3>Tintos con crianza</h3></div>
-          <p>Mosquita Muerta, Sapo de Otro Pozo, Las Perdices Don Juan, Alma Negra, Las Perdices Reserva, Ala Colorada, Gran Sombrero y Rutini.</p></div>
-      </article>
-      <article class="dish">
-        <img src="fotos/vinos-espumosos.jpg" alt="Vinos Espumosos" onerror="this.onerror=null;this.src='https://placehold.co/600x450/2A1B14/E8A33D?text=FOTO%3A%20Espumosos';">
-        <div class="dish-body"><div class="dish-top"><h3>Espumosos</h3></div>
-          <p>Luigi Bosca, Antonieta, Las Perdices y Salentein.</p></div>
-      </article>
-    </div>
-  </div>
+  <div id="menuContainer"></div>
 </section>
 
 <div class="ember-line"></div>
 
+<!-- ===================== UBICACIÓN ===================== -->
 <section id="ubicacion">
   <div class="location">
-    <div class="location-info">
-      <span class="eyebrow">Ubicación</span>
+    <div class="location-info reveal-left">
+      <span class="eyebrow">Ubicación & Horarios</span>
       <h2>Te esperamos frente al lago</h2>
+      
       <div class="info-row">
         <span class="info-label">Dirección</span>
-        <span class="info-val">Potrero de los Funes, San Luis, Argentina</span>
+        <span class="info-val">Av. del Circuito frente al Lago, Potrero de los Funes, San Luis, Argentina</span>
       </div>
+
       <div class="info-row">
-        <span class="info-label">Horario</span>
-        <span class="info-val">Todos los días, excepto los martes, 12:30–16:00 y 20:30–00:00 hs</span>
+        <span class="info-label">Horarios</span>
+        <span class="info-val">Miércoles a Lunes: 12:30 a 16:00 hs (Almuerzo) y 20:30 a 00:00 hs (Cena).<br><em>Martes cerrado por descanso.</em></span>
       </div>
+
+      <div class="info-row">
+        <span class="info-label">Ambiente</span>
+        <span class="info-val">Terraza semi-cubierta & Salón interior climatizado.</span>
+      </div>
+
       <div class="info-row">
         <span class="info-label">Reservas</span>
-        <span class="info-val">Por WhatsApp o teléfono</span>
+        <span class="info-val">WhatsApp o Teléfono directo</span>
       </div>
-      <div class="hero-ctas" style="justify-content:flex-start;margin-top:2rem;">
-        <a href="https://www.google.com/maps/place/@-33.2295923,-66.2285721,15z/data=!4m15!1m8!3m7!1s0x95d4155ed0d7d0b7:0x48cf9a210e539757!2sPotrero+de+los+Funes,+San+Luis!3b1!8m2!3d-33.2197154!4d-66.2308601!16s%2Fg%2F12111wpy!3m5!1s0x95d4157c3289b21d:0x831d8b1f3be580d7!8m2!3d-33.2366901!4d-66.2335648!16s%2Fg%2F11h9xwpzcy?entry=ttu&g_ep=EgoyMDI2MDcxNS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn btn-fill">Abrir en Google Maps</a>
+
+      <div class="hero-ctas" style="justify-content:flex-start; margin-top:2.2rem;">
+        <a href="https://www.google.com/maps/place/@-33.2295923,-66.2285721,15z/data=!4m15!1m8!3m7!1s0x95d4155ed0d7d0b7:0x48cf9a210e539757!2sPotrero+de+los+Funes,+San+Luis!3b1!8m2!3d-33.2197154!4d-66.2308601!16s%2Fg%2F12111wpy!3m5!1s0x95d4157c3289b21d:0x831d8b1f3be580d7!8m2!3d-33.2366901!4d-66.2335648!16s%2Fg%2F11h9xwpzcy?entry=ttu" target="_blank" class="btn btn-fill">Abrir en Google Maps</a>
       </div>
     </div>
-    <iframe class="map-frame" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+
+    <iframe class="map-frame reveal-right" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
       src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d13349.63517331779!2d-66.2285721!3d-33.2295923!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95d4157c3289b21d%3A0x831d8b1f3be580d7!2sPARRILLA%20%22DON%20JUAN%22!5e0!3m2!1ses-419!2sar!4v1784680500363!5m2!1ses-419!2sar">
     </iframe>
   </div>
 </section>
 
 <div class="ember-line"></div>
+
+<!-- ===================== FOOTER / CONTACTO ===================== -->
 <footer id="contacto">
-  <span class="eyebrow">Contacto</span>
-  <h2>Reservá tu mesa</h2>
-  <p style="color:var(--hueso-dim);max-width:40ch;margin:0 auto;font-weight:300;">Escribinos y te confirmamos la disponibilidad.</p>
-  <div class="contact-ctas">
-    <a href="https://wa.me/5492664886777" target="_blank" class="btn btn-fill">WhatsApp</a>
-    <a href="https://www.instagram.com/parrilla.don.juan/" target="_blank" class="btn btn-outline">Instagram</a>
+  <div class="reveal">
+    <span class="eyebrow">Contacto & Reservas</span>
+    <h2>Asegurá tu lugar</h2>
+    <p style="color:var(--hueso-dim); max-width:44ch; margin:0 auto; font-weight:300;">Escribinos por WhatsApp y te confirmamos la disponibilidad al instante.</p>
+    
+    <div class="contact-ctas">
+      <button class="btn btn-gold" id="footerReserveBtn">📱 Reservar por WhatsApp</button>
+      <a href="https://www.instagram.com/parrilla.don.juan/" target="_blank" class="btn btn-outline">📸 Seguinos en Instagram</a>
+    </div>
   </div>
+
   <div class="foot-bottom">
-    <span>© 2026 Parrilla Don Juan — Potrero de los Funes</span>
-    <span>Hecho con fuego y paciencia</span>
+    <span>© 2026 Parrilla Don Juan — Potrero de los Funes, San Luis</span>
+    <span>Hecho con fuego y paciencia 🔥</span>
   </div>
 </footer>
 
+<!-- ===================== MODAL DE DETALLE DE PLATO ===================== -->
+<div class="modal-overlay" id="dishModal">
+  <div class="modal-card">
+    <button class="modal-close" id="dishModalClose">✕</button>
+    <div class="modal-img-wrap">
+      <img id="dishModalImg" src="" alt="Plato">
+    </div>
+    <div class="modal-body">
+      <h3 class="modal-title" id="dishModalTitle"></h3>
+      <div class="modal-price" id="dishModalPrice"></div>
+      <p class="modal-desc" id="dishModalDesc"></p>
+      
+      <div class="modal-box" id="dishModalPairingBox">
+        <div class="modal-box-lbl">🍷 Maridaje Recomendado</div>
+        <div class="modal-box-val" id="dishModalPairing"></div>
+      </div>
+
+      <div style="display:flex; gap:1rem;">
+        <button class="btn btn-gold" id="dishModalCloseBtn" style="width:100%;">Cerrar y Ver la Carta</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== MODAL DE RESERVA INTELIGENTE ===================== -->
+<div class="modal-overlay" id="reservationModal">
+  <div class="modal-card" style="max-width: 520px;">
+    <button class="modal-close" id="resModalClose">✕</button>
+    <div class="modal-body" style="padding: 2.2rem;">
+
+      <!-- ACTIVE RESERVATION FORM CONTAINER -->
+      <div id="resActiveContainer">
+        <h3 class="modal-title" style="color:var(--gold); font-size:1.6rem;">🔥 Reserva Directa</h3>
+        <p style="color:var(--hueso-dim); font-size:0.9rem; margin-bottom:1.5rem;">Completa tus datos y te derivaremos a WhatsApp con la solicitud lista:</p>
+        
+        <form class="res-form" id="resForm" onsubmit="event.preventDefault(); sendWhatsAppReservation();">
+          <div class="res-field">
+            <label>Nombre Completo</label>
+            <input type="text" id="resName" placeholder="Ej. Juan Pérez" required>
+          </div>
+
+          <div class="res-row">
+            <div class="res-field">
+              <label>Fecha</label>
+              <input type="date" id="resDate" required>
+            </div>
+            <div class="res-field">
+              <label>Turno / Hora de Reserva</label>
+              <select id="resTime" required>
+                <option value="Almuerzo 12:30 hs">Almuerzo 12:30 hs</option>
+                <option value="Almuerzo 13:00 hs">Almuerzo 13:00 hs</option>
+                <option value="Almuerzo 13:30 hs">Almuerzo 13:30 hs</option>
+                <option value="Almuerzo 14:00 hs">Almuerzo 14:00 hs</option>
+                <option value="Almuerzo 14:30 hs">Almuerzo 14:30 hs</option>
+                <option value="Cena 20:30 hs">Cena 20:30 hs</option>
+                <option value="Cena 21:00 hs">Cena 21:00 hs</option>
+                <option value="Cena 21:30 hs">Cena 21:30 hs</option>
+                <option value="Cena 22:00 hs">Cena 22:00 hs</option>
+                <option value="Cena 22:30 hs">Cena 22:30 hs</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="res-row">
+            <div class="res-field">
+              <label>Personas</label>
+              <select id="resPeople">
+                <option value="2 personas">2 Personas</option>
+                <option value="3 personas">3 Personas</option>
+                <option value="4 personas">4 Personas</option>
+                <option value="5 a 8 personas">Grupo (5 a 8 personas)</option>
+                <option value="Más de 8 personas">Evento (+8 personas)</option>
+              </select>
+            </div>
+            <div class="res-field">
+              <label>Preferencia de Mesa</label>
+              <select id="resArea">
+                <option value="Terraza">Terraza</option>
+                <option value="Salón Interior Climatizado">Salón Interior Climatizado</option>
+                <option value="Sin preferencia">Sin preferencia</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="res-field">
+            <label>Aclaraciones Especiales (Opcional)</label>
+            <textarea id="resNotes" rows="2" placeholder="Ej. Celebración de cumpleaños, silla para niños, lugar accesible..."></textarea>
+          </div>
+
+          <!-- 20-Minute Tolerance Warning Box -->
+          <div class="res-warning-box">
+            <span class="warning-icon">⚠️</span>
+            <div>
+              <strong>Tolerancia de reserva:</strong> El restaurante mantiene la mesa asignada con una <strong>tolerancia máxima de 20 minutos</strong> sobre el horario elegido.
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-gold" style="width:100%; margin-top:0.4rem;">
+            📱 Enviar Reserva a WhatsApp
+          </button>
+        </form>
+
+        <!-- Direct WhatsApp Chat Alternative Option -->
+        <div style="margin-top: 1.2rem; text-align: center; border-top: 1px solid rgba(232, 154, 60, 0.12); padding-top: 1rem;">
+          <p style="color:var(--humo); font-size:0.82rem; margin-bottom:0.6rem;">¿Prefieres hacer una consulta directa sin llenar el formulario?</p>
+          <a href="https://wa.me/5492664886777?text=Hola%20Parrilla%20Don%20Juan!%20Quisiera%20hacerles%20una%20consulta." target="_blank" class="btn btn-outline" style="width:100%; text-align:center;">
+            💬 Chatear Directamente por WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <!-- PAUSED / SEASON HIGH NOTICE CONTAINER -->
+      <div id="resDisabledNotice" style="display:none; text-align:center; padding:0.5rem 0;">
+        <div style="font-size: 2.8rem; margin-bottom: 0.6rem;">⏳</div>
+        <h3 style="color:var(--gold); font-size: 1.45rem; margin-bottom: 0.6rem;">Atención por Orden de Llegada</h3>
+        <p style="color:var(--hueso-dim); font-size: 0.95rem; line-height: 1.55; margin-bottom: 1.4rem;">
+          Debido a la alta demanda por <strong>temporada alta</strong>, hemos pausado temporalmente las reservas previas para garantizar una asignación ágil de mesas a medida que los comensales van llegando.
+        </p>
+
+        <div class="res-warning-box" style="margin-bottom: 1.5rem; text-align: left;">
+          <span class="warning-icon">📍</span>
+          <div>
+            <strong>Te esperamos directamente:</strong> Acércate al restaurante en Potrero de los Funes y te asignaremos mesa por estricto orden de llegada.
+          </div>
+        </div>
+
+        <a href="https://wa.me/5492664886777?text=Hola%20Parrilla%20Don%20Juan!%20Quisiera%20hacerles%20una%20consulta." target="_blank" class="btn btn-gold" style="width:100%; text-align:center;">
+          💬 Chatear Directamente por WhatsApp
+        </a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- MENU DATA SCRIPT -->
+<script src="menu-data.js"></script>
+
+<!-- HEARTH CANVAS ENGINE & SCRIPT LOGIC -->
 <script>
-  // menu tabs
-  const tabs = document.querySelectorAll('.menu-tab');
-  const groups = document.querySelectorAll('.menu-group');
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      tabs.forEach(t => t.classList.remove('active'));
-      groups.forEach(g => g.classList.remove('active'));
-      tab.classList.add('active');
-      document.getElementById(tab.dataset.target).classList.add('active');
+/* ============================================================
+   FIRE BACKGROUND — 60 FPS Canvas Engine
+   ============================================================ */
+(function() {
+  const canvas = document.getElementById('fireCanvas');
+  const ctx = canvas.getContext('2d');
+  let W, H;
+  let particles = [];
+  let coals = [];
+  let flames = [];
+
+  function resize() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+    initHearth();
+  }
+
+  function initHearth() {
+    coals = [];
+    flames = [];
+
+    const count = Math.max(16, Math.floor(W / 45));
+    for (let i = 0; i < count; i++) {
+      const radius = 14 + Math.random() * 22;
+      const numPoints = 6 + Math.floor(Math.random() * 5);
+      const points = [];
+      for (let p = 0; p < numPoints; p++) {
+        const angle = (p / numPoints) * Math.PI * 2;
+        const dist = radius * (0.65 + Math.random() * 0.5);
+        points.push({ x: Math.cos(angle) * dist, y: Math.sin(angle) * dist });
+      }
+
+      coals.push({
+        x: (i / count) * W + Math.random() * 40 - 20,
+        y: H - 5 - Math.random() * 30,
+        radius,
+        points,
+        baseAlpha: 0.45 + Math.random() * 0.5,
+        phase: Math.random() * Math.PI * 2,
+        speed: 0.4 + Math.random() * 0.8,
+        heatHue: 12 + Math.random() * 25
+      });
+    }
+
+    const flameCount = Math.max(8, Math.floor(W / 90));
+    for (let f = 0; f < flameCount; f++) {
+      flames.push({
+        x: (f / flameCount) * W + Math.random() * 60 - 30,
+        y: H - 8 - Math.random() * 25,
+        width: 14 + Math.random() * 22,
+        height: 25 + Math.random() * 35,
+        phase: Math.random() * Math.PI * 2,
+        speed: 1.2 + Math.random() * 1.5,
+        hue: 15 + Math.random() * 20
+      });
+    }
+  }
+
+  function spawnParticle(x, y, isMouse = false) {
+    if (isMouse) {
+      particles.push({
+        x: x + (Math.random() - 0.5) * 14,
+        y: y + (Math.random() - 0.5) * 14,
+        vx: (Math.random() - 0.5) * 0.6,
+        vy: -(0.3 + Math.random() * 0.7),
+        life: 1,
+        decay: 0.008 + Math.random() * 0.012,
+        r: 1.5 + Math.random() * 2.5,
+        type: 'spark',
+        hue: 25 + Math.random() * 25
+      });
+      return;
+    }
+
+    const type = Math.random();
+    if (type < 0.8) {
+      particles.push({
+        x: Math.random() * W,
+        y: H + 5,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: -(0.15 + Math.random() * 0.45),
+        life: 1,
+        decay: 0.0012 + Math.random() * 0.003,
+        r: 1 + Math.random() * 2.2,
+        type: 'spark',
+        hue: 18 + Math.random() * 25
+      });
+    } else if (type < 0.94) {
+      particles.push({
+        x: Math.random() * W,
+        y: H + 5,
+        vx: (Math.random() - 0.5) * 0.2,
+        vy: -(0.2 + Math.random() * 0.4),
+        life: 1,
+        decay: 0.001 + Math.random() * 0.002,
+        r: 2 + Math.random() * 3.5,
+        type: 'ember',
+        hue: 12 + Math.random() * 24
+      });
+    }
+  }
+
+  window.addEventListener('mousemove', (e) => {
+    if (Math.random() < 0.35) spawnParticle(e.clientX, e.clientY, true);
+  }, { passive: true });
+
+  window.addEventListener('touchmove', (e) => {
+    if (e.touches[0] && Math.random() < 0.35) {
+      spawnParticle(e.touches[0].clientX, e.touches[0].clientY, true);
+    }
+  }, { passive: true });
+
+  function update() {
+    for (let i = particles.length - 1; i >= 0; i--) {
+      const p = particles[i];
+      p.x += p.vx;
+      p.y += p.vy;
+      p.life -= p.decay;
+      if (p.type === 'spark' || p.type === 'ember') {
+        p.vx += (Math.random() - 0.5) * 0.015;
+      }
+      if (p.life <= 0) particles.splice(i, 1);
+    }
+  }
+
+  function draw(time) {
+    ctx.clearRect(0, 0, W, H);
+
+    const fireGlow = ctx.createRadialGradient(W/2, H, 0, W/2, H, H * 0.45);
+    fireGlow.addColorStop(0, 'rgba(211, 63, 15, 0.22)');
+    fireGlow.addColorStop(0.4, 'rgba(180, 45, 8, 0.08)');
+    fireGlow.addColorStop(0.85, 'rgba(232, 154, 60, 0.015)');
+    fireGlow.addColorStop(1, 'transparent');
+    ctx.fillStyle = fireGlow;
+    ctx.fillRect(0, H * 0.45, W, H * 0.55);
+
+    const t = time * 0.0006;
+    for (const coal of coals) {
+      const pulse = Math.sin(t * coal.speed + coal.phase) * 0.25 + 0.75;
+      const alpha = coal.baseAlpha * pulse;
+
+      ctx.save();
+      ctx.translate(coal.x, coal.y);
+
+      const aura = ctx.createRadialGradient(0, 0, 0, 0, 0, coal.radius * 2.4);
+      aura.addColorStop(0, `hsla(${coal.heatHue}, 95%, 45%, ${alpha * 0.35})`);
+      aura.addColorStop(1, 'transparent');
+      ctx.fillStyle = aura;
+      ctx.beginPath();
+      ctx.arc(0, 0, coal.radius * 2.4, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.moveTo(coal.points[0].x, coal.points[0].y);
+      for (let p = 1; p < coal.points.length; p++) {
+        ctx.lineTo(coal.points[p].x, coal.points[p].y);
+      }
+      ctx.closePath();
+
+      const coalGrad = ctx.createRadialGradient(0, 0, 0, 0, 0, coal.radius);
+      coalGrad.addColorStop(0, `hsla(${coal.heatHue + 15}, 100%, 75%, ${alpha * 0.95})`);
+      coalGrad.addColorStop(0.35, `hsla(${coal.heatHue}, 95%, 46%, ${alpha * 0.85})`);
+      coalGrad.addColorStop(0.8, `hsla(${coal.heatHue - 10}, 85%, 22%, ${alpha * 0.7})`);
+      coalGrad.addColorStop(1, '#0e0603');
+
+      ctx.fillStyle = coalGrad;
+      ctx.strokeStyle = `rgba(160, 40, 8, ${alpha * 0.4})`;
+      ctx.lineWidth = 1.2;
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.restore();
+    }
+
+    const ft = time * 0.002;
+    for (const f of flames) {
+      const sway = Math.sin(ft * f.speed + f.phase) * 8;
+      const heightPulse = f.height + Math.cos(ft * 1.5 + f.phase) * 6;
+
+      ctx.save();
+      ctx.translate(f.x, f.y);
+
+      ctx.beginPath();
+      ctx.moveTo(-f.width / 2, 0);
+      ctx.quadraticCurveTo(-f.width / 4, -heightPulse * 0.5, sway, -heightPulse);
+      ctx.quadraticCurveTo(f.width / 4, -heightPulse * 0.5, f.width / 2, 0);
+      ctx.closePath();
+
+      const flameGrad = ctx.createLinearGradient(0, 0, 0, -heightPulse);
+      flameGrad.addColorStop(0, `hsla(${f.hue - 5}, 100%, 48%, 0.48)`);
+      flameGrad.addColorStop(0.5, `hsla(${f.hue + 10}, 100%, 55%, 0.38)`);
+      flameGrad.addColorStop(1, `hsla(${f.hue + 25}, 100%, 75%, 0)`);
+
+      ctx.fillStyle = flameGrad;
+      ctx.fill();
+      ctx.restore();
+    }
+
+    for (const p of particles) {
+      const radius = p.r * p.life;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, radius, 0, Math.PI * 2);
+      ctx.fillStyle = `hsla(${p.hue + 10}, 100%, 78%, ${p.life * 0.85})`;
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, radius * 2.2, 0, Math.PI * 2);
+      ctx.fillStyle = `hsla(${p.hue}, 95%, 52%, ${p.life * 0.15})`;
+      ctx.fill();
+    }
+  }
+
+  let frameCount = 0;
+  function loop(time) {
+    frameCount++;
+    if (frameCount % 2 === 0) spawnParticle();
+    update();
+    draw(time);
+    requestAnimationFrame(loop);
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+  loop(0);
+
+  const smokeLayer = document.getElementById('smokeLayer');
+  for (let i = 0; i < 5; i++) {
+    const wisp = document.createElement('div');
+    wisp.className = 'smoke-wisp';
+    const size = 150 + Math.random() * 250;
+    wisp.style.width = size + 'px';
+    wisp.style.height = size * (0.8 + Math.random() * 0.5) + 'px';
+    wisp.style.left = (5 + Math.random() * 90) + '%';
+    wisp.style.animationDuration = (32 + Math.random() * 35) + 's';
+    wisp.style.animationDelay = (Math.random() * 20) + 's';
+    wisp.style.setProperty('--sx', (Math.random() * 80 - 40) + 'px');
+    wisp.style.setProperty('--sx2', (Math.random() * 60 - 30) + 'px');
+    smokeLayer.appendChild(wisp);
+  }
+})();
+
+/* ============================================================
+   APP LOGIC — Real-time Status, Search, Tabs & WhatsApp Reservation
+   ============================================================ */
+(function() {
+  'use strict';
+
+  const PLACEHOLDER_BASE = 'https://placehold.co/600x450/1A130D/E89A3C?font=roboto&text=';
+  let menuCategories = [];
+  let currentActiveTab = 0;
+  let currentSelectedDish = null;
+
+  // --- 1. Live Restaurant Status Indicator ---
+  function updateLiveStatus() {
+    const now = new Date();
+    // Argentina Time offset check
+    const day = now.getDay(); // 0: Sun, 1: Mon, 2: Tue (Closed), etc.
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    const timeVal = hours + minutes / 60;
+
+    const pill = document.getElementById('liveStatusPill');
+    const text = document.getElementById('liveStatusText');
+
+    if (day === 2) {
+      pill.className = 'status-pill closed';
+      text.textContent = '🔴 Cerrado los Martes · Abrimos Mañana 12:30 hs';
+      return;
+    }
+
+    const isLunch = timeVal >= 12.5 && timeVal < 16.0;
+    const isDinner = timeVal >= 20.5 || timeVal < 0.5;
+
+    if (isLunch) {
+      pill.className = 'status-pill open';
+      text.textContent = '🟢 Abierto Ahora · Turno Almuerzo hasta 16:00 hs';
+    } else if (isDinner) {
+      pill.className = 'status-pill open';
+      text.textContent = '🟢 Abierto Ahora · Turno Cena hasta 00:00 hs';
+    } else if (timeVal >= 16.0 && timeVal < 20.5) {
+      pill.className = 'status-pill closed';
+      text.textContent = '🟡 Abrimos a las 20:30 hs · Turno Cena';
+    } else {
+      pill.className = 'status-pill closed';
+      text.textContent = '🔴 Cerrado ahora · Abrimos a las 12:30 hs';
+    }
+  }
+
+  // --- 2. Menu Data Loader ---
+  function getMenuData() {
+    let localData = null;
+    const local = localStorage.getItem('DON_JUAN_MENU');
+    if (local) {
+      try {
+        const parsed = JSON.parse(local);
+        if (parsed && parsed.categorias) {
+          const hasPrices = parsed.categorias.some(c => c.platos.some(p => p.precio > 0));
+          if (hasPrices) return parsed;
+          localData = parsed;
+        }
+      } catch(e) {}
+    }
+    if (window.MENU_DATA && window.MENU_DATA.categorias) {
+      return window.MENU_DATA;
+    }
+    return localData;
+  }
+
+  async function init() {
+    updateLiveStatus();
+    setInterval(updateLiveStatus, 60000);
+
+    let data = getMenuData();
+    if (!data) {
+      try {
+        const res = await fetch('menu-data.json?' + Date.now());
+        if (res.ok) data = await res.json();
+      } catch (err) {
+        console.error('Error al cargar menú:', err);
+      }
+    }
+
+    if (!data || !data.categorias) {
+      document.getElementById('menuContainer').innerHTML =
+        '<p style="text-align:center;color:var(--humo);padding:3rem 0;">No se pudo cargar la carta. Verificá los datos.</p>';
+      return;
+    }
+
+    menuCategories = data.categorias;
+    renderTabs();
+    renderGroups();
+    activateTab(0);
+    initScrollReveal();
+    initSearch();
+    initModals();
+  }
+
+  // --- 3. Render Tabs ---
+  function renderTabs() {
+    const tabsEl = document.getElementById('menuTabs');
+    tabsEl.innerHTML = menuCategories.map((cat, i) => `
+      <button class="menu-tab${i === 0 ? ' active' : ''}" data-index="${i}">
+        <span>${cat.nombre}</span>
+        <span class="tab-count">${cat.platos.length}</span>
+      </button>
+    `).join('');
+
+    tabsEl.addEventListener('click', (e) => {
+      const tab = e.target.closest('.menu-tab');
+      if (!tab) return;
+      activateTab(parseInt(tab.dataset.index));
+    });
+  }
+
+  function activateTab(idx) {
+    currentActiveTab = idx;
+    document.querySelectorAll('.menu-tab').forEach((t, i) => t.classList.toggle('active', i === idx));
+    document.querySelectorAll('.menu-group').forEach((g, i) => {
+      const isActive = i === idx;
+      g.classList.toggle('active', isActive);
+      if (isActive && observer) {
+        g.querySelectorAll('.dish').forEach(d => observer.observe(d));
+      }
+    });
+  }
+
+  // --- 4. Render Dish Groups ---
+  function renderGroups() {
+    const container = document.getElementById('menuContainer');
+    container.innerHTML = menuCategories.map((cat, i) => `
+      <div class="menu-group${i === 0 ? ' active' : ''}" id="${cat.id}">
+        <div class="menu-grid">
+          ${cat.platos.map((plato, j) => renderDish(plato, j)).join('')}
+        </div>
+        ${cat.nota ? `<p class="menu-note">${cat.nota}</p>` : ''}
+      </div>
+    `).join('');
+
+    // Attach click event for Dish Detail Modal
+    container.addEventListener('click', (e) => {
+      const dishCard = e.target.closest('.dish');
+      if (!dishCard) return;
+      const dishId = dishCard.dataset.dishId;
+      openDishModal(dishId);
+    });
+  }
+
+  function renderDish(plato, index) {
+    const imgSrc = `fotos/${plato.imagen}`;
+    const placeholder = PLACEHOLDER_BASE + encodeURIComponent(plato.nombre);
+    const priceHTML = (plato.precio && plato.precio > 0)
+      ? `<span class="dish-price">$${formatPrice(plato.precio)}</span>`
+      : `<span class="dish-price dish-price-consultar">Consultar</span>`;
+
+    const badgeHTML = plato.destacado ? `<span class="dish-badge">🔥 Recomendado</span>` : '';
+    
+    const tagsHTML = plato.etiquetas && plato.etiquetas.length
+      ? `<div class="dish-tags">${plato.etiquetas.map(t => `<span class="dish-tag">${t}</span>`).join('')}</div>`
+      : '';
+
+    const maridajeHTML = plato.maridaje
+      ? `<div class="dish-maridaje-preview">🍷 ${plato.maridaje}</div>`
+      : '';
+
+    return `
+      <article class="dish reveal" data-dish-id="${plato.id}" style="transition-delay: ${index * 0.04}s">
+        <div class="dish-img-wrap">
+          ${badgeHTML}
+          <img src="${imgSrc}" alt="${plato.nombre}" loading="lazy"
+               onerror="this.onerror=null;this.src='${placeholder}';">
+        </div>
+        <div class="dish-body">
+          <div class="dish-top">
+            <h3>${plato.nombre}</h3>
+            ${priceHTML}
+          </div>
+          <p class="dish-desc">${plato.descripcion || ''}</p>
+          ${maridajeHTML}
+          ${tagsHTML}
+        </div>
+      </article>
+    `;
+  }
+
+  function formatPrice(n) {
+    return Number(n).toLocaleString('es-AR');
+  }
+
+  // --- 5. Live Search Engine ---
+  function initSearch() {
+    const searchInput = document.getElementById('menuSearchInput');
+    const clearBtn = document.getElementById('searchClearBtn');
+
+    searchInput.addEventListener('input', (e) => {
+      const query = e.target.value.toLowerCase().trim();
+      clearBtn.classList.toggle('visible', query.length > 0);
+      filterMenu(query);
+    });
+
+    clearBtn.addEventListener('click', () => {
+      searchInput.value = '';
+      clearBtn.classList.remove('visible');
+      filterMenu('');
+    });
+  }
+
+  function filterMenu(query) {
+    if (!query) {
+      // Show tabs & current active group
+      document.getElementById('menuTabs').style.display = 'flex';
+      activateTab(currentActiveTab);
+      return;
+    }
+
+    // Hide normal category tabs while searching
+    document.getElementById('menuTabs').style.display = 'none';
+
+    document.querySelectorAll('.menu-group').forEach(group => {
+      group.classList.add('active');
+      let visibleCount = 0;
+
+      group.querySelectorAll('.dish').forEach(dish => {
+        const dishId = dish.dataset.dishId;
+        const plato = findDishById(dishId);
+        if (!plato) return;
+
+        const match = plato.nombre.toLowerCase().includes(query) ||
+                      (plato.descripcion && plato.descripcion.toLowerCase().includes(query)) ||
+                      (plato.etiquetas && plato.etiquetas.some(t => t.toLowerCase().includes(query)));
+
+        dish.style.display = match ? 'flex' : 'none';
+        if (match) visibleCount++;
+      });
+
+      group.style.display = visibleCount > 0 ? 'block' : 'none';
+    });
+  }
+
+  function findDishById(id) {
+    for (const cat of menuCategories) {
+      const found = cat.platos.find(p => p.id === id);
+      if (found) return found;
+    }
+    return null;
+  }
+
+  // --- 6. Dish Detail Modal & Reservation Modal ---
+  function initModals() {
+    const openResBtns = [
+      document.getElementById('headerReserveBtn'),
+      document.getElementById('heroReserveBtn'),
+      document.getElementById('footerReserveBtn')
+    ];
+
+    openResBtns.forEach(btn => {
+      if (btn) btn.addEventListener('click', () => openReservationModal());
+    });
+
+    document.getElementById('dishModalClose').addEventListener('click', closeDishModal);
+    document.getElementById('dishModalCloseBtn').addEventListener('click', closeDishModal);
+    document.getElementById('dishModal').addEventListener('click', (e) => {
+      if (e.target.id === 'dishModal') closeDishModal();
+    });
+
+    document.getElementById('resModalClose').addEventListener('click', closeReservationModal);
+    document.getElementById('reservationModal').addEventListener('click', (e) => {
+      if (e.target.id === 'reservationModal') closeReservationModal();
+    });
+
+    const dishResBtn = document.getElementById('dishModalReserveBtn');
+    if (dishResBtn) {
+      dishResBtn.addEventListener('click', () => {
+        closeDishModal();
+        openReservationModal();
+      });
+    }
+
+    const dateInput = document.getElementById('resDate');
+    if (dateInput) {
+      const today = new Date().toISOString().split('T')[0];
+      dateInput.value = today;
+      dateInput.min = today;
+    }
+  }
+
+  function openDishModal(dishId) {
+    const plato = findDishById(dishId);
+    if (!plato) return;
+    currentSelectedDish = plato;
+
+    const modal = document.getElementById('dishModal');
+    document.getElementById('dishModalImg').src = `fotos/${plato.imagen}`;
+    document.getElementById('dishModalTitle').textContent = plato.nombre;
+    document.getElementById('dishModalPrice').textContent = plato.precio ? `$${formatPrice(plato.precio)}` : 'Consultar';
+    document.getElementById('dishModalDesc').textContent = plato.descripcion || '';
+
+    const pairingBox = document.getElementById('dishModalPairingBox');
+    if (plato.maridaje) {
+      pairingBox.style.display = 'block';
+      document.getElementById('dishModalPairing').textContent = plato.maridaje;
+    } else {
+      pairingBox.style.display = 'none';
+    }
+
+    modal.classList.add('active');
+  }
+
+  function closeDishModal() {
+    document.getElementById('dishModal').classList.remove('active');
+  }
+
+  function openReservationModal() {
+    const isResActive = localStorage.getItem('DON_JUAN_RESERVATIONS_ACTIVE') !== 'false';
+    const activeBox = document.getElementById('resActiveContainer');
+    const disabledBox = document.getElementById('resDisabledNotice');
+
+    if (isResActive) {
+      if (activeBox) activeBox.style.display = 'block';
+      if (disabledBox) disabledBox.style.display = 'none';
+    } else {
+      if (activeBox) activeBox.style.display = 'none';
+      if (disabledBox) disabledBox.style.display = 'block';
+    }
+
+    document.getElementById('reservationModal').classList.add('active');
+  }
+
+  function closeReservationModal() {
+    document.getElementById('reservationModal').classList.remove('active');
+  }
+
+  // --- 7. WhatsApp Reservation Form Submitter ---
+  window.sendWhatsAppReservation = function() {
+    const name = document.getElementById('resName').value.trim();
+    const date = document.getElementById('resDate').value;
+    const time = document.getElementById('resTime').value;
+    const people = document.getElementById('resPeople').value;
+    const area = document.getElementById('resArea').value;
+    const notes = document.getElementById('resNotes').value.trim();
+
+    const dateParts = date.split('-');
+    const formattedDate = dateParts.length === 3 ? `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}` : date;
+
+    let message = `Hola Parrilla Don Juan! 🔥 Quisiera solicitar una reserva de mesa con los siguientes detalles:\n\n`;
+    message += `👤 *Nombre:* ${name}\n`;
+    message += `📅 *Fecha:* ${formattedDate}\n`;
+    message += `⏰ *Hora solicitada:* ${time}\n`;
+    message += `👥 *Comensales:* ${people}\n`;
+    message += `📍 *Ubicación:* ${area}\n`;
+    if (notes) {
+      message += `📝 *Aclaraciones:* ${notes}\n`;
+    }
+    message += `\n⚠️ *Nota:* Comprendo la tolerancia máxima de 20 minutos sobre la hora acordada.\n`;
+    message += `\n¿Tienen disponibilidad? ¡Muchas gracias!`;
+
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappURL = `https://wa.me/5492664886777?text=${encodedMessage}`;
+
+    closeReservationModal();
+    window.open(whatsappURL, '_blank');
+  };
+
+  // ---- Shared Intersection Observer ----
+  let observer;
+  function initScrollReveal() {
+    const els = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+    if ('IntersectionObserver' in window) {
+      observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+      els.forEach(el => observer.observe(el));
+    } else {
+      els.forEach(el => el.classList.add('visible'));
+      observer = { observe: () => {} };
+    }
+  }
+
+  // ---- Header Scroll & Mobile Nav ----
+  const header = document.getElementById('mainHeader');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+
+  const navToggle = document.getElementById('navToggle');
+  const nav = document.getElementById('nav');
+  const navOverlay = document.getElementById('navOverlay');
+
+  navToggle.addEventListener('click', () => {
+    const isOpen = nav.classList.toggle('open');
+    navOverlay.classList.toggle('active', isOpen);
+    navToggle.textContent = isOpen ? '✕' : '☰';
+  });
+
+  function closeNav() {
+    nav.classList.remove('open');
+    navOverlay.classList.remove('active');
+    navToggle.textContent = '☰';
+  }
+  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeNav));
+  navOverlay.addEventListener('click', closeNav);
+
+  // ---- Smooth Anchor Scrolling ----
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     });
   });
 
-  // mobile nav
-  const navToggle = document.getElementById('navToggle');
-  const nav = document.getElementById('nav');
-  navToggle.addEventListener('click', () => nav.classList.toggle('open'));
-  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => nav.classList.remove('open')));
-
-  // rising embers in hero
-  const embersBg = document.getElementById('embersBg');
-  const sparkCount = 22;
-  for (let i = 0; i < sparkCount; i++) {
-    const s = document.createElement('div');
-    s.className = 'spark';
-    const left = Math.random() * 100;
-    const duration = 4 + Math.random() * 5;
-    const delay = Math.random() * 8;
-    const drift = (Math.random() * 80 - 40) + 'px';
-    s.style.left = left + '%';
-    s.style.animationDuration = duration + 's';
-    s.style.animationDelay = delay + 's';
-    s.style.setProperty('--drift', drift);
-    embersBg.appendChild(s);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
   }
+})();
 </script>
 
 </body>
