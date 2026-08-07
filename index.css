@@ -323,11 +323,18 @@ nav a:hover::after { width: 100%; }
 
 .hero h1 {
   font-size: clamp(3.2rem, 10.5vw, 8.2rem);
-  line-height: 0.92;
+  line-height: 0.96;
   letter-spacing: -0.02em;
   color: var(--hueso);
   animation: fadeInUp 1s ease 0.4s both;
   text-shadow: 0 10px 40px rgba(0,0,0,0.6);
+}
+.hero-title-main {
+  display: block;
+}
+.hero-title-name {
+  display: block;
+  white-space: nowrap;
 }
 .hero h1 em {
   font-style: italic;
@@ -1075,7 +1082,9 @@ footer h2 { font-size: clamp(2rem, 5vw, 3rem); margin-bottom: 1.2rem; }
   .nav-toggle { display: block; }
   .menu-grid { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
   section { padding: 5rem 5vw; }
-  .hero h1 { font-size: clamp(2.8rem, 13vw, 5.2rem); }
+  .hero h1 { font-size: clamp(2.8rem, 13vw, 5.2rem); line-height: 1.04; }
+  .hero-title-main { display: block; margin-bottom: 0.12em; }
+  .hero-title-name { display: block; white-space: nowrap; }
   .hero-stats { grid-template-columns: 1fr; gap: 1.2rem; }
   .about-badge { position: relative; top: auto; right: auto; transform: none; margin-top: -30px; }
   .res-row { grid-template-columns: 1fr; }
