@@ -388,7 +388,7 @@
           "id": "gaseosas-aguas",
           "nombre": "Gaseosas y Aguas Saborizadas",
           "descripcion": "Agua con o sin gas, aguas saborizadas y gaseosas.",
-          "precio": 0,
+          "precio": 3000,
           "imagen": "gaseosas-y-aguas-saborizadas.jpg"
         },
         {
