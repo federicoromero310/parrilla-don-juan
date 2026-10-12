@@ -14,7 +14,7 @@
         {
           "id": "empanadas",
           "nombre": "Empanadas",
-          "descripcion": "A elección: carne, jamón y queso, osobuco o matambre.",
+          "descripcion": "A elección: carne, jamón y queso, osobuco o chivo.",
           "precio": 0,
           "imagen": "empanadas.jpg"
         },
@@ -299,7 +299,7 @@
           "id": "pure",
           "nombre": "Puré",
           "descripcion": "Guarnición clásica.",
-          "precio": 7500,
+          "precio": 6500,
           "imagen": "pure.jpg"
         },
         {
@@ -388,7 +388,7 @@
           "id": "gaseosas-aguas",
           "nombre": "Gaseosas y Aguas Saborizadas",
           "descripcion": "Agua con o sin gas, aguas saborizadas y gaseosas.",
-          "precio": 3500,
+          "precio": 0,
           "imagen": "gaseosas-y-aguas-saborizadas.jpg"
         },
         {
